@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cleaner.emptykesh">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".SplashActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+        <activity android:name=".MainActivity">
+
+
+            <!-- Branch App Links (optional) -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="b6dn7.app.link" />
+                <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
+                <data android:scheme="https" android:host="b6dn7-alternate.app.link" />
+            </intent-filter>
+
+
+        </activity>
+        <activity
+            android:name=".PowerSaving_popup"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ultra_PopUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BatterySaver_Black"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Noraml_Mode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PowerSaving_Complition"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Applying_Ultra"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Sacnning_Junk"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Cpu_Scanner"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Pick_Apps"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" />
+
+        <receiver android:name=".Alaram_Booster" />
+        <receiver android:name=".Alaram_Junk" />
+        <receiver android:name=".AppListener">
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".PowerConnected">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".Broadcast.AlarmReceiver" /> <!-- <activity android:name="" -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7164494629924185~2877222817" />
+
+
+        <!-- Branch init -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="secret_live_Pu2O0HwChsFjx77BSDxYIGDm6l3kVLd3" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_hlxrWC5Zx16DkYmWu4AHiimdqugRYMr" />
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
+    </application>
+
+</manifest>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "517336599495",
+    "project_id": "android-cleaner-e7316",
+    "storage_bucket": "android-cleaner-e7316.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517336599495:android:727ea3dfdf63d7bf4567e2",
+        "android_client_info": {
+          "package_name": "com.cleaner.emptykesh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517336599495-hcfoqt8n9cmq40ieo3h6r2384vn536ou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLLFzfjBtvB7DBCUf5HoZq7T4NrhceenQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517336599495-hcfoqt8n9cmq40ieo3h6r2384vn536ou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
