@@ -16,8 +16,6 @@ import android.widget.TextView;
 
 import com.cleaner.emptykesh.Broadcast.AlarmReceiver;
 import com.cleaner.emptykesh.PageAdapter.MyPagerAdapter;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Calendar;
@@ -27,7 +25,7 @@ public class MainActivity extends FragmentActivity {
   public static TextView name;
   SharedPreferences sharedpreferences;
   SharedPreferences.Editor editor;
-  private AdView mAdView;
+//  private AdView mAdView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +39,13 @@ public class MainActivity extends FragmentActivity {
     setContentView(R.layout.activity_main);
 
 
-    mAdView = (AdView) findViewById(R.id.adView);
-    AdRequest adRequest = new AdRequest.Builder().build();
-    mAdView.loadAd(adRequest);
-
-    if (isNetworkAvailable()) {
-      mAdView.setVisibility(View.VISIBLE);
-    }
+//    mAdView = (AdView) findViewById(R.id.adView);
+//    AdRequest adRequest = new AdRequest.Builder().build();
+//    mAdView.loadAd(adRequest);
+//
+//    if (isNetworkAvailable()) {
+//      mAdView.setVisibility(View.VISIBLE);
+//    }
 
     ////                         Notification                                              /////
     ////////////////////////////////////////////////////////////////////////////////////////////

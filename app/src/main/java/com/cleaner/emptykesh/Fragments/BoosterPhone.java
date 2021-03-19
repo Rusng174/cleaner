@@ -30,9 +30,7 @@ import androidx.fragment.app.Fragment;
 
 import com.cleaner.emptykesh.Alaram_Booster;
 import com.cleaner.emptykesh.R;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
+
 import com.skyfishjy.library.RippleBackground;
 
 import java.io.RandomAccessFile;
@@ -67,7 +65,7 @@ public class BoosterPhone extends Fragment {
   int counter = 0;
   SharedPreferences sharedpreferences;
   SharedPreferences.Editor editor;
-  InterstitialAd mInterstitialAd;
+//  InterstitialAd mInterstitialAd;
   PulsatorLayout pulsator;
 
 
@@ -99,16 +97,16 @@ public class BoosterPhone extends Fragment {
     ramperct = (TextView) view.findViewById(R.id.ramperct);
     sharedpreferences = getActivity().getSharedPreferences("waseem", Context.MODE_PRIVATE);
 
-    mInterstitialAd = new InterstitialAd(getActivity());
-    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
-    AdRequest adRequestInter = new AdRequest.Builder().build();
-    mInterstitialAd.setAdListener(new AdListener() {
-      @Override
-      public void onAdLoaded() {
-//                mInterstitialAd.show();
-      }
-    });
-    mInterstitialAd.loadAd(adRequestInter);
+//    mInterstitialAd = new InterstitialAd(getActivity());
+//    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
+//    AdRequest adRequestInter = new AdRequest.Builder().build();
+//    mInterstitialAd.setAdListener(new AdListener() {
+//      @Override
+//      public void onAdLoaded() {
+////                mInterstitialAd.show();
+//      }
+//    });
+//    mInterstitialAd.loadAd(adRequestInter);
 
 
 
@@ -276,7 +274,7 @@ public class BoosterPhone extends Fragment {
 
       @Override
       public void onEventEnd(DecoEvent decoEvent) {
-        mInterstitialAd.show();
+//        mInterstitialAd.show();
         bottom.setText("Found");
         top.setText("Storage");
         Random ran3 = new Random();
