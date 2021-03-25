@@ -24,6 +24,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cleaner.emptykesh.Classes.Apps;
 import com.cleaner.emptykesh.Fragments.CoolerCPU;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.skyfishjy.library.RippleBackground;
 import com.zys.brokenview.BrokenTouchListener;
 import com.zys.brokenview.BrokenView;
@@ -50,7 +53,7 @@ public class Cpu_Scanner extends Activity {
   List<ApplicationInfo> packages;
   TextView cooledcpu;
   RelativeLayout rel;
-//  InterstitialAd mInterstitialAd;
+  InterstitialAd mInterstitialAd;
 
 
   @Override
@@ -65,16 +68,16 @@ public class Cpu_Scanner extends Activity {
     app=new ArrayList<>();
 
 
-//    mInterstitialAd = new InterstitialAd(getApplicationContext());
-//    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
-//    AdRequest adRequestInter = new AdRequest.Builder().build();
-//    mInterstitialAd.setAdListener(new AdListener() {
-//      @Override
-//      public void onAdLoaded() {
-//
-//      }
-//    });
-//    mInterstitialAd.loadAd(adRequestInter);
+    mInterstitialAd = new InterstitialAd(getApplicationContext());
+    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
+    AdRequest adRequestInter = new AdRequest.Builder().build();
+    mInterstitialAd.setAdListener(new AdListener() {
+      @Override
+      public void onAdLoaded() {
+
+      }
+    });
+    mInterstitialAd.loadAd(adRequestInter);
 
 
     RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -228,7 +231,7 @@ public class Cpu_Scanner extends Activity {
               rippleBackground.stopRippleAnimation();
 
 
-//              mInterstitialAd.show();
+              mInterstitialAd.show();
 
 
 

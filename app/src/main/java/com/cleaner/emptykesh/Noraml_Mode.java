@@ -22,6 +22,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
@@ -34,7 +37,7 @@ public class Noraml_Mode extends Activity {
   SharedPreferences sharedpreferences;
   SharedPreferences.Editor editor;
   int check=0;
-//  InterstitialAd mInterstitialAd;
+  InterstitialAd mInterstitialAd;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +60,16 @@ public class Noraml_Mode extends Activity {
 
     ///// Call to Intersticial load
 
-//    mInterstitialAd = new InterstitialAd(getApplicationContext());
-//    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
-//    AdRequest adRequestInter = new AdRequest.Builder().build();
-//    mInterstitialAd.setAdListener(new AdListener() {
-//      @Override
-//      public void onAdLoaded() {
-//
-//      }
-//    });
-//    mInterstitialAd.loadAd(adRequestInter);
+    mInterstitialAd = new InterstitialAd(getApplicationContext());
+    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
+    AdRequest adRequestInter = new AdRequest.Builder().build();
+    mInterstitialAd.setAdListener(new AdListener() {
+      @Override
+      public void onAdLoaded() {
+
+      }
+    });
+    mInterstitialAd.loadAd(adRequestInter);
 
 
 
@@ -114,16 +117,16 @@ public class Noraml_Mode extends Activity {
           ist.setTextColor(Color.parseColor("#FFFFFF"));
           istpic.setImageResource(R.drawable.circle_white);
 //
-//                    final InterstitialAd mInterstitialAd = new InterstitialAd(getApplicationContext());
-//                    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
-//                    AdRequest adRequestInter = new AdRequest.Builder().build();
-//                    mInterstitialAd.setAdListener(new AdListener() {
-//                        @Override
-//                        public void onAdLoaded() {
-//                            mInterstitialAd.show();
-//                        }
-//                    });
-//                    mInterstitialAd.loadAd(adRequestInter);
+                    final InterstitialAd mInterstitialAd = new InterstitialAd(getApplicationContext());
+                    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
+                    AdRequest adRequestInter = new AdRequest.Builder().build();
+                    mInterstitialAd.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdLoaded() {
+                            mInterstitialAd.show();
+                        }
+                    });
+                    mInterstitialAd.loadAd(adRequestInter);
 
         }
         else if(v1>=50 && v1<75)
@@ -186,7 +189,7 @@ public class Noraml_Mode extends Activity {
 
         try
         {
-//          mInterstitialAd.show();
+          mInterstitialAd.show();
         }
         catch (Exception e)
         {

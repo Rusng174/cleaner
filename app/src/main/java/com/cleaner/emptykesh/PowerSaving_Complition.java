@@ -25,6 +25,9 @@ import androidx.core.content.ContextCompat;
 //import com.google.android.gms.ads.AdListener;
 //import com.google.android.gms.ads.AdRequest;
 //import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
@@ -35,7 +38,7 @@ public class PowerSaving_Complition extends Activity {
   TextView ist,sec,thir,fou,completion;
   ImageView istpic,secpic,thirpic,foupic;
   int check=0;
-//  InterstitialAd mInterstitialAd;
+  InterstitialAd mInterstitialAd;
 
 
   /// Power Saving Mode is Applied Compeltion Indicator Animation
@@ -58,16 +61,16 @@ public class PowerSaving_Complition extends Activity {
 
     arcView = (DecoView) findViewById(R.id.dynamicArcView2);
 
-//    mInterstitialAd = new InterstitialAd(getApplicationContext());
-//    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
-//    AdRequest adRequestInter = new AdRequest.Builder().build();
-//    mInterstitialAd.setAdListener(new AdListener() {
-//      @Override
-//      public void onAdLoaded() {
-//
-//      }
-//    });
-//    mInterstitialAd.loadAd(adRequestInter);
+    mInterstitialAd = new InterstitialAd(getApplicationContext());
+    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
+    AdRequest adRequestInter = new AdRequest.Builder().build();
+    mInterstitialAd.setAdListener(new AdListener() {
+      @Override
+      public void onAdLoaded() {
+
+      }
+    });
+    mInterstitialAd.loadAd(adRequestInter);
 
 //        arcView.addSeries(new SeriesItem.Builder(Color.argb(255, 218, 218, 218))
 //                .setRange(0, 100, 0)
@@ -174,7 +177,7 @@ public class PowerSaving_Complition extends Activity {
 
 
 
-//        mInterstitialAd.show();
+        mInterstitialAd.show();
 
 
 

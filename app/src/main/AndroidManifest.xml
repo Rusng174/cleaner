@@ -19,7 +19,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".App">
         <activity android:name=".SplashActivity">
 
             <intent-filter>
@@ -29,9 +30,13 @@
             </intent-filter>
 
 
-        </activity>
-        <activity android:name=".MainActivity">
-
+            <!-- Branch URI Scheme -->
+            <intent-filter>
+                <data android:scheme="cleaner" android:host="open" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
 
             <!-- Branch App Links (optional) -->
             <intent-filter android:autoVerify="true">
@@ -39,9 +44,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" android:host="b6dn7.app.link" />
-                <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
                 <data android:scheme="https" android:host="b6dn7-alternate.app.link" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".MainActivity">
 
 
         </activity>
@@ -90,9 +97,9 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".Broadcast.AlarmReceiver" /> <!-- <activity android:name="" -->
-<!--        <meta-data-->
-<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
-<!--            android:value="ca-app-pub-7164494629924185~2877222817" />-->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7164494629924185~2877222817" />
 
 
         <!-- Branch init -->

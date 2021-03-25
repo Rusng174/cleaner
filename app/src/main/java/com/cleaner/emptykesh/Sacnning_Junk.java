@@ -29,6 +29,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cleaner.emptykesh.Classes.Apps;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.skyfishjy.library.RippleBackground;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -59,7 +62,7 @@ public class Sacnning_Junk extends Activity {
   PackageManager pm;
   ImageView mImgCheck;
   TextView scanning;
-//  InterstitialAd mInterstitialAd;
+  InterstitialAd mInterstitialAd;
 
 
   //// Scanning for any junk file existance inorder to clean it
@@ -81,16 +84,16 @@ public class Sacnning_Junk extends Activity {
     apps=new ArrayList<>();
 
 
-//    mInterstitialAd = new InterstitialAd(getApplicationContext());
-//    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
-//    AdRequest adRequestInter = new AdRequest.Builder().build();
-//    mInterstitialAd.setAdListener(new AdListener() {
-//      @Override
-//      public void onAdLoaded() {
-//
-//      }
-//    });
-//    mInterstitialAd.loadAd(adRequestInter);
+    mInterstitialAd = new InterstitialAd(getApplicationContext());
+    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
+    AdRequest adRequestInter = new AdRequest.Builder().build();
+    mInterstitialAd.setAdListener(new AdListener() {
+      @Override
+      public void onAdLoaded() {
+
+      }
+    });
+    mInterstitialAd.loadAd(adRequestInter);
 
 
     RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -312,7 +315,7 @@ public class Sacnning_Junk extends Activity {
           @Override
           public void onAnimationEnd(Animator animation) {
 
-//            mInterstitialAd.show();
+            mInterstitialAd.show();
 
             rippleBackground.stopRippleAnimation();
 
