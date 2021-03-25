@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 
 import io.branch.referral.Branch;
 import io.branch.referral.BranchError;
+import io.branch.referral.validators.IntegrationValidator;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -46,17 +48,23 @@ public class SplashActivity extends AppCompatActivity {
       public void run() {
         if(mInterstitialAd.isLoaded()) {
           mInterstitialAd.show();
-        }
+        } else  {
           startActivity(new Intent(getApplicationContext(), MainActivity.class));
           finish();
+        }
 
       }
     }, 4000);
   }
 
+
   @Override public void onStart() {
     super.onStart();
-    Branch.sessionBuilder(SplashActivity.this).withCallback(branchReferralInitListener).withData(getIntent() != null ? getIntent().getData() : null).init();
+    Branch.sessionBuilder(this).withCallback(branchReferralInitListener).withData(getIntent() != null ? getIntent().getData() : null).init();
+
+    IntegrationValidator.validate(SplashActivity.this);
+
+    Branch.getInstance().initSession();
   }
   @Override
   protected void onNewIntent(Intent intent) {
@@ -66,10 +74,18 @@ public class SplashActivity extends AppCompatActivity {
     // activity will skip onStart, handle this case with reInitSession
     Branch.sessionBuilder(this).withCallback(branchReferralInitListener).reInit();
   }
-  private Branch.BranchReferralInitListener branchReferralInitListener = new Branch.BranchReferralInitListener() {
+  private final Branch.BranchReferralInitListener branchReferralInitListener = new Branch.BranchReferralInitListener() {
     @Override
     public void onInitFinished(JSONObject linkProperties, BranchError error) {
       // do stuff with deep link data (nav to page, display content, etc)
+
+      if (error == null) {
+        Log.i("BRANCH SDK ", linkProperties.toString());
+        // Retrieve deeplink keys from 'referringParams' and evaluate the values to determine where to route the user
+        // Check '+clicked_branch_link' before deciding whether to use your Branch routing logic
+      } else {
+        Log.e("BRANCH SDK MainActivity", error.getMessage());
+      }
     }
   };
 

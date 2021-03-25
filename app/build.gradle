@@ -65,7 +65,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-appindexing:19.2.0'
 
-     implementation 'io.branch.sdk.android:library:5.0.7'
+    implementation 'io.branch.sdk.android:library:5.0.5'
     // required if your app is in the Google Play Store (tip: avoid using bundled play services libs)
     // optional
     // Chrome Tab matching (enables 100% guaranteed matching based on cookies)

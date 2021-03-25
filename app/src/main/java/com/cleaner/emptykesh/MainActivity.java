@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,7 +21,13 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
+
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
+import io.branch.referral.validators.IntegrationValidator;
 
 public class MainActivity extends FragmentActivity {
 
@@ -195,4 +202,5 @@ public class MainActivity extends FragmentActivity {
     NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
     return activeNetworkInfo != null && activeNetworkInfo.isConnected();
   }
+
 }

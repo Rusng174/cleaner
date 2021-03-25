@@ -47,8 +47,12 @@
                 <data android:scheme="https" android:host="b6dn7-alternate.app.link" />
             </intent-filter>
 
+
         </activity>
         <activity android:name=".MainActivity">
+
+
+
 
 
         </activity>
@@ -103,8 +107,8 @@
 
 
         <!-- Branch init -->
-        <meta-data android:name="io.branch.sdk.BranchKey" android:value="secret_live_Pu2O0HwChsFjx77BSDxYIGDm6l3kVLd3" />
-        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_hlxrWC5Zx16DkYmWu4AHiimdqugRYMr" />
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_ii0pADwonga7DlU0jhltIhapFBe29AzL" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_aj5cvuDlahk6zbG6eal40ohhvxb56sC6" />
         <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
     </application>
 
