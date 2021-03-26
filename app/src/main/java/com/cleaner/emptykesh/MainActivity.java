@@ -19,11 +19,15 @@ import com.cleaner.emptykesh.Broadcast.AlarmReceiver;
 import com.cleaner.emptykesh.PageAdapter.MyPagerAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import io.branch.referral.Branch;
 import io.branch.referral.BranchError;
@@ -34,7 +38,11 @@ public class MainActivity extends FragmentActivity {
   public static TextView name;
   SharedPreferences sharedpreferences;
   SharedPreferences.Editor editor;
+
   private AdView mAdView;
+  private ScheduledExecutorService scheduler;
+  private boolean isVisible;
+  private InterstitialAd mInterstitialAd;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,7 @@ public class MainActivity extends FragmentActivity {
     });
     setContentView(R.layout.activity_main);
 
+    prepareAd();
 
     mAdView = (AdView) findViewById(R.id.adView);
     AdRequest adRequest = new AdRequest.Builder().build();
@@ -202,5 +211,53 @@ public class MainActivity extends FragmentActivity {
     NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
     return activeNetworkInfo != null && activeNetworkInfo.isConnected();
   }
+
+  public void  prepareAd() {
+    mInterstitialAd = new InterstitialAd(this);
+    mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial));
+    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+  }
+
+
+
+  // start Ad at 30 seconds
+
+
+  @Override
+  protected void onStart(){
+    super.onStart();
+    isVisible = true;
+    if(scheduler == null){
+      scheduler = Executors.newSingleThreadScheduledExecutor();
+      scheduler.scheduleAtFixedRate(new Runnable() {
+        public void run() {
+          Log.i("hello", "world");
+          runOnUiThread(new Runnable() {
+            public void run() {
+              if (mInterstitialAd.isLoaded() && isVisible) {
+                mInterstitialAd.show();
+              } else {
+                Log.d("TAG"," Interstitial not loaded");
+              }
+
+              prepareAd();
+            }
+          });
+        }
+      }, 30, 30, TimeUnit.SECONDS);
+
+    }
+
+  }
+  //.. code
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    scheduler.shutdownNow();
+    scheduler = null;
+    isVisible =false;
+  }
+
 
 }
