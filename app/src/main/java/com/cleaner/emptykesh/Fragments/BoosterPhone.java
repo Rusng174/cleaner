@@ -106,7 +106,7 @@ public class BoosterPhone extends Fragment {
     mInterstitialAd.setAdListener(new AdListener() {
       @Override
       public void onAdLoaded() {
-                mInterstitialAd.show();
+//                mInterstitialAd.show();
       }
     });
     mInterstitialAd.loadAd(adRequestInter);

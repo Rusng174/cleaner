@@ -30,8 +30,8 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
-    mInterstitialAd = new com.google.android.gms.ads.InterstitialAd(getApplicationContext());
-    mInterstitialAd.setAdUnitId(getResources().getString(R.string.start_banner));
+    mInterstitialAd = new InterstitialAd(this);
+    mInterstitialAd.setAdUnitId(getString(R.string.interstitial));
     mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
     mInterstitialAd.setAdListener(new AdListener(){
@@ -48,11 +48,11 @@ public class SplashActivity extends AppCompatActivity {
       public void run() {
         if(mInterstitialAd.isLoaded()) {
           mInterstitialAd.show();
-        } else  {
+        }
+        else{
           startActivity(new Intent(getApplicationContext(), MainActivity.class));
           finish();
         }
-
       }
     }, 4000);
   }
@@ -80,11 +80,11 @@ public class SplashActivity extends AppCompatActivity {
       // do stuff with deep link data (nav to page, display content, etc)
 
       if (error == null) {
-        Log.i("BRANCH SDK ", linkProperties.toString());
+        Log.i("BRANCH SDK SplashActiv", linkProperties.toString());
         // Retrieve deeplink keys from 'referringParams' and evaluate the values to determine where to route the user
         // Check '+clicked_branch_link' before deciding whether to use your Branch routing logic
       } else {
-        Log.e("BRANCH SDK MainActivity", error.getMessage());
+        Log.e("BRANCH SDK SplashActiv", error.getMessage());
       }
     }
   };
