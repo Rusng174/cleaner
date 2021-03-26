@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Clean PRO Master</string>
     <string name="action_settings">Settings</string>
-    <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="app_banner"> ca-app-pub-3940256099942544/6300978111</string>
-    <string name="start_banner">ca-app-pub-3940256099942544/1033173712</string>
+<!--    <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>-->
+<!--    <string name="app_banner"> ca-app-pub-3940256099942544/6300978111</string>-->
+<!--    <string name="start_banner">ca-app-pub-3940256099942544/1033173712</string>-->
     <string name="short_not">Short</string>
     <string name="large_not">Large</string>
     <string name="title_notefication">Performnace Issue</string>
@@ -12,7 +12,7 @@
 
 <!-- real banner-->
 
-<!--    <string name="start_banner">ca-app-pub-7164494629924185/1658127025</string>-->
-<!--    <string name="app_banner"> ca-app-pub-7164494629924185/8954889465</string>-->
-<!--    <string name="interstitial">ca-app-pub-7164494629924185/3447234308</string>-->
+    <string name="start_banner">ca-app-pub-7164494629924185/1658127025</string>
+    <string name="app_banner"> ca-app-pub-7164494629924185/8954889465</string>
+    <string name="interstitial">ca-app-pub-7164494629924185/3447234308</string>
 </resources>

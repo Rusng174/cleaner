@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     mInterstitialAd = new InterstitialAd(this);
-    mInterstitialAd.setAdUnitId(getString(R.string.interstitial));
+    mInterstitialAd.setAdUnitId(getString(R.string.start_banner));
     mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
     mInterstitialAd.setAdListener(new AdListener(){
