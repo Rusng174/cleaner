@@ -15,4 +15,16 @@
         android:src="@drawable/logo_splash"/>
 
 
+
+    <TextView
+        android:id="@+id/privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Privacy policy"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="10dp"/>
+
 </RelativeLayout>

@@ -71,8 +71,8 @@ public class BoosterPhone extends Fragment {
   InterstitialAd mInterstitialAd;
   PulsatorLayout pulsator;
 
-
   RippleBackground rippleBackground;
+
 
 
 
@@ -137,6 +137,7 @@ public class BoosterPhone extends Fragment {
 //                pulsator.start();
 //                pulsator.setColor(R.color.green);
 
+
         rippleBackground.startRippleAnimation();
 
       }
@@ -145,6 +146,7 @@ public class BoosterPhone extends Fragment {
 
 //            pulsator.start();
 //            pulsator.setColor(R.color.green);
+
 
 
       rippleBackground.startRippleAnimation();

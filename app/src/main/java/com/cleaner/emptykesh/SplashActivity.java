@@ -3,9 +3,12 @@ package com.cleaner.emptykesh;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -22,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
 
   InterstitialAd mInterstitialAd;
 
+  TextView privacy;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
+
+    privacy = findViewById(R.id.privacy);
     mInterstitialAd = new InterstitialAd(this);
     mInterstitialAd.setAdUnitId(getString(R.string.start_banner));
     mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -55,6 +61,17 @@ public class SplashActivity extends AppCompatActivity {
         }
       }
     }, 4000);
+
+
+    //privacy
+    privacy.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cleaner-pro-master.flycricket.io/privacy.html"));
+        startActivity(browserIntent);
+      }
+    });
   }
 
 

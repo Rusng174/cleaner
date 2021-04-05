@@ -8,6 +8,7 @@ import com.cleaner.emptykesh.Fragments.SaverBattery;
 import com.cleaner.emptykesh.Fragments.CoolerCPU;
 import com.cleaner.emptykesh.Fragments.CleanerJunk;
 import com.cleaner.emptykesh.Fragments.BoosterPhone;
+import com.cleaner.emptykesh.Fragments.SubscrationFragment;
 
 public class MyPagerAdapter extends FragmentStatePagerAdapter {
   int mNumOfTabs;
@@ -33,6 +34,10 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
       case 3:
         CleanerJunk tab4 = new CleanerJunk();
         return tab4;
+
+//      case 4:
+//        SubscrationFragment tab5 = new SubscrationFragment();
+//        return tab5;
       default:
         return null;
     }

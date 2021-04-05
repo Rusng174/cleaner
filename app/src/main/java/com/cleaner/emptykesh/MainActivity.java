@@ -157,6 +157,8 @@ public class MainActivity extends FragmentActivity {
     tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.battery_saver));
     tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.cooler));
     tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.cleaner));
+//    tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_baseline_attach_money));
+
     tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
     final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
