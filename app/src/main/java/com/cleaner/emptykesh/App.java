@@ -9,18 +9,18 @@ import io.branch.referral.Branch;
 public class App extends Application {
 
 
-  private FirebaseAnalytics mFirebaseAnalytics;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-    mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-    Branch.enableLogging();
+        Branch.enableLogging();
 
-    // Branch object initialization
-    Branch.getAutoInstance(this);
+        // Branch object initialization
+        Branch.getAutoInstance(this);
 
-  }
+    }
 }

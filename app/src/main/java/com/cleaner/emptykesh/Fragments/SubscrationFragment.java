@@ -13,16 +13,15 @@ import com.cleaner.emptykesh.R;
 
 public class SubscrationFragment extends Fragment {
 
-  View view;
+    View view;
 
 
-  @Nullable
-  @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    view = inflater.inflate(R.layout.fragment_subscration, container, false);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_subscration, container, false);
 
 
-
-    return view;
-  }
+        return view;
+    }
 }
