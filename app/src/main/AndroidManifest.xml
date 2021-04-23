@@ -14,26 +14,28 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".App">
-        <activity android:name=".SplashActivity">
-
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
             <!-- Branch URI Scheme -->
             <intent-filter>
-                <data android:scheme="cleaner" android:host="open" />
+                <data
+                    android:host="open"
+                    android:scheme="cleaner" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
@@ -41,19 +43,17 @@
             <!-- Branch App Links (optional) -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="b6dn7.app.link" />
-                <data android:scheme="https" android:host="b6dn7-alternate.app.link" />
+
+                <data
+                    android:host="b6dn7.app.link"
+                    android:scheme="https" />
+                <data
+                    android:host="b6dn7-alternate.app.link"
+                    android:scheme="https" />
             </intent-filter>
-
-
-        </activity>
-        <activity android:name=".MainActivity">
-
-
-
-
 
         </activity>
         <activity
@@ -100,16 +100,21 @@
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".Broadcast.AlarmReceiver" /> <!-- <activity android:name="" -->
+        <receiver android:name=".Broadcast.AlarmReceiver" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7164494629924185~2877222817" />
 
-
         <!-- Branch init -->
-        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_ii0pADwonga7DlU0jhltIhapFBe29AzL" />
-        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_aj5cvuDlahk6zbG6eal40ohhvxb56sC6" />
-        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
+        <meta-data
+            android:name="io.branch.sdk.BranchKey"
+            android:value="key_live_ii0pADwonga7DlU0jhltIhapFBe29AzL" />
+        <meta-data
+            android:name="io.branch.sdk.BranchKey.test"
+            android:value="key_test_aj5cvuDlahk6zbG6eal40ohhvxb56sC6" />
+        <meta-data
+            android:name="io.branch.sdk.TestMode"
+            android:value="false" />
     </application>
 
 </manifest>

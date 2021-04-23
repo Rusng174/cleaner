@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -21,17 +20,32 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import io.branch.referral.Branch;
+import io.branch.referral.validators.IntegrationValidator;
+
 public class MainActivity extends FragmentActivity {
 
-    public static TextView name;
-    SharedPreferences sharedpreferences;
-    SharedPreferences.Editor editor;
+    private SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
 
     private ScheduledExecutorService scheduler;
-    private boolean isVisible;
+
+    private final Branch.BranchReferralInitListener branchReferralInitListener = (linkProperties, error) -> {
+        // do stuff with deep link data (nav to page, display content, etc)
+
+        if (error == null) {
+            Log.i("BRANCH SDK SplashActiv", linkProperties.toString());
+            // Retrieve deeplink keys from 'referringParams' and evaluate the values to determine where to route the user
+            // Check '+clicked_branch_link' before deciding whether to use your Branch routing logic
+        } else {
+            Log.e("BRANCH SDK SplashActiv", error.getMessage());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> System.exit(2));
         setContentView(R.layout.activity_main);
@@ -128,30 +142,31 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        isVisible = true;
         if (scheduler == null) {
             scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.scheduleAtFixedRate(() -> Log.i("hello", "world"), 30, 30, TimeUnit.SECONDS);
-
         }
 
+        Branch.sessionBuilder(this).withCallback(branchReferralInitListener).withData(getIntent() != null ? getIntent().getData() : null).init();
+
+        IntegrationValidator.validate(MainActivity.this);
+
+        Branch.getInstance().initSession();
     }
-
-
-    // start Ad at 30 seconds
 
     @Override
     protected void onStop() {
         super.onStop();
         scheduler.shutdownNow();
         scheduler = null;
-        isVisible = false;
-    }
-    //.. code
-
-    public class MyException extends Exception {
-        // special exception code goes here
     }
 
-
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        // if activity is in foreground (or in backstack but partially visible) launching the same
+        // activity will skip onStart, handle this case with reInitSession
+        Branch.sessionBuilder(this).withCallback(branchReferralInitListener).reInit();
+    }
 }
