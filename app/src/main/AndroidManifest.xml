@@ -75,7 +75,7 @@
             android:name=".Applying_Ultra"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Sacnning_Junk"
+            android:name=".SacnningJunkActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Cpu_Scanner"

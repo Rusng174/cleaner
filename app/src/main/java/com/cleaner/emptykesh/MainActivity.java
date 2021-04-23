@@ -8,11 +8,19 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.cleaner.emptykesh.Broadcast.AlarmReceiver;
 import com.cleaner.emptykesh.PageAdapter.MyPagerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Calendar;
@@ -27,20 +35,18 @@ public class MainActivity extends FragmentActivity {
 
     private SharedPreferences sharedpreferences;
     private SharedPreferences.Editor editor;
-
     private ScheduledExecutorService scheduler;
 
     private final Branch.BranchReferralInitListener branchReferralInitListener = (linkProperties, error) -> {
-        // do stuff with deep link data (nav to page, display content, etc)
 
         if (error == null) {
             Log.i("BRANCH SDK SplashActiv", linkProperties.toString());
-            // Retrieve deeplink keys from 'referringParams' and evaluate the values to determine where to route the user
-            // Check '+clicked_branch_link' before deciding whether to use your Branch routing logic
         } else {
             Log.e("BRANCH SDK SplashActiv", error.getMessage());
         }
     };
+
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +130,36 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+
+        ads();
+    }
+
+    private void ads() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+
+        if (sharedpreferences.getBoolean("onAdLoaded", false)) {
+            return;
+        }
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(MainActivity.this, "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+                mInterstitialAd.show(MainActivity.this);
+                editor.putBoolean("onAdLoaded", true);
+                editor.commit();
+                Log.d("Cleaner", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                Log.d("Cleaner", loadAdError.getMessage());
+                mInterstitialAd = null;
             }
         });
     }

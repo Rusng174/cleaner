@@ -7,15 +7,15 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.Classes.power_item;
+import com.cleaner.emptykesh.Classes.PowerItem;
 
 import java.util.List;
 
 public class PowerAdapter extends RecyclerView.Adapter<PowerAdapter.MyViewHolder> {
 
-    public List<power_item> apps;
+    public List<PowerItem> apps;
 
-    public PowerAdapter(List<power_item> getapps) {
+    public PowerAdapter(List<PowerItem> getapps) {
         apps = getapps;
     }
 
@@ -30,7 +30,7 @@ public class PowerAdapter extends RecyclerView.Adapter<PowerAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        power_item app = apps.get(position);
+        PowerItem app = apps.get(position);
         holder.size.setText(app.getText());
     }
 

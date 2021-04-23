@@ -14,20 +14,12 @@ import android.widget.Toast;
 
 public class AppListener extends BroadcastReceiver {
 
-
-    /// Listen for newly installed app and protect it
-
     @Override
     public void onReceive(Context context, Intent arg1) {
-        // TODO Auto-generated method stub
-
         Uri data = arg1.getData();
         String installedPackageName = data.getEncodedSchemeSpecificPart();
 
-
         if (!(installedPackageName.equals("fast.cleaner.battery.saver"))) {
-//            Toast.makeText(context, installedPackageName + "", Toast.LENGTH_SHORT).show();
-
             final String packageName = installedPackageName;
             PackageManager packageManager = context.getApplicationContext().getPackageManager();
             try {

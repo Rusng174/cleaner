@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -21,12 +22,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleaner.emptykesh.Classes.Apps;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.skyfishjy.library.RippleBackground;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -38,24 +44,19 @@ import java.util.TimerTask;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class Sacnning_Junk extends AppCompatActivity {
+public class SacnningJunkActivity extends AppCompatActivity {
 
     public List<Apps> apps;
     AVLoadingIndicatorView avi1, avi2, avi3, avi4, avi5, avi6;
     ImageView front, back;
-    Runnable myRunnable2;
-    Handler myHandler2;
-    Handler myHandler;
-    Runnable myRunnable;
     int check = 0;
     TextView files;
     List<ApplicationInfo> packages;
     int prog = 0;
-    Timer T2, T3;
+    Timer T2;
     Junk_Apps_Adapter mAdapter;
     RecyclerView recyclerView;
     PackageManager pm;
-    ImageView mImgCheck;
     TextView scanning;
 
     @Override
@@ -207,7 +208,7 @@ public class Sacnning_Junk extends AppCompatActivity {
                     handler71.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            finish();
+                            ads();
                         }
                     }, 1000);
                 }
@@ -275,16 +276,11 @@ public class Sacnning_Junk extends AppCompatActivity {
         avi2.show();
         avi4.show();
         avi6.show();
-        // or avi.smoothToHide();
     }
 
 
     public void add(String text, int position) {
-
-
         int p = 0 + (int) (Math.random() * ((packages.size() - 1 - 0) + 1));
-
-
         Drawable ico = null;
 
         Apps item = new Apps();
@@ -298,35 +294,29 @@ public class Sacnning_Junk extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         item.setSize(packages.get(p).dataDir);
         apps.add(item);
-//        mDataSet.add(position, text);
         mAdapter.notifyItemInserted(position);
     }
 
 
     public void remove(int position) {
-//        mDataSet.add(position, text);
         mAdapter.notifyItemRemoved(position);
         apps.remove(position);
     }
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
     }
 
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable mDivider;
 
         public SimpleDividerItemDecoration(Context context) {
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mDivider = context.getResources().getDrawable(R.drawable.line_divvide, context.getTheme());
             } else {
                 mDivider = context.getResources().getDrawable(R.drawable.line_divvide);
-
             }
         }
 
@@ -349,5 +339,27 @@ public class Sacnning_Junk extends AppCompatActivity {
             }
         }
     }
+
+
+    private void ads() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(SacnningJunkActivity.this, "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+                mInterstitialAd.show(SacnningJunkActivity.this);
+                SacnningJunkActivity.this.finish();
+                Log.d("Cleaner", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                Log.d("Cleaner", loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
+    }
+
+    private InterstitialAd mInterstitialAd;
 }
 

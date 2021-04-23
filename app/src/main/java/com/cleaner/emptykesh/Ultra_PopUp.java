@@ -1,6 +1,5 @@
 package com.cleaner.emptykesh;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,10 +8,11 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.Classes.power_item;
+import com.cleaner.emptykesh.Classes.PowerItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +20,11 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class Ultra_PopUp extends Activity {
+public class Ultra_PopUp extends AppCompatActivity {
 
     RecyclerView recyclerView;
     PowerAdapter mAdapter;
-    List<power_item> items;
+    List<PowerItem> items;
     ImageView applied;
     TextView extendedtime, extendedtimedetail;
     int hour;
@@ -160,7 +160,7 @@ public class Ultra_PopUp extends Activity {
     }
 
     public void add(String text, int position) {
-        power_item item = new power_item();
+        PowerItem item = new PowerItem();
         item.setText(text);
         items.add(item);
 //        mDataSet.add(position, text);

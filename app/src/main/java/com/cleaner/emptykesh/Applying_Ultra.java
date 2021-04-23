@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -27,10 +28,7 @@ import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
 
-public class Applying_Ultra extends Activity {
-
-
-    //// activate ultra powersaving mode by closing system services
+public class Applying_Ultra extends AppCompatActivity {
 
     DecoView arcView;
     TextView ist, sec, thir, fou, completion, fif;

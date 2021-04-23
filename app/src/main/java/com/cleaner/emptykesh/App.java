@@ -8,7 +8,6 @@ import io.branch.referral.Branch;
 
 public class App extends Application {
 
-
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -16,11 +15,7 @@ public class App extends Application {
         super.onCreate();
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
         Branch.enableLogging();
-
-        // Branch object initialization
         Branch.getAutoInstance(this);
-
     }
 }

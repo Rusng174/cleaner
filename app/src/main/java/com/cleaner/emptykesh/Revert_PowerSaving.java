@@ -5,11 +5,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.animation.AccelerateInterpolator;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
 
-public class Revert_PowerSaving extends Activity {
+public class Revert_PowerSaving extends AppCompatActivity {
 
 
     /// Apply Normal Mode and Remove any power saving mode that was selected

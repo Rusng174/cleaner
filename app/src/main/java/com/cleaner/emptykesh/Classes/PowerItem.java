@@ -1,6 +1,6 @@
 package com.cleaner.emptykesh.Classes;
 
-public class power_item {
+public class PowerItem {
 
     String text;
 

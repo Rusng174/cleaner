@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +32,10 @@ import com.cleaner.emptykesh.Classes.Apps;
 import com.cleaner.emptykesh.Cpu_Scanner;
 import com.cleaner.emptykesh.R;
 import com.cleaner.emptykesh.RecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,29 +46,24 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class CoolerCPU extends Fragment {
 
+    private InterstitialAd mInterstitialAd;
     public static List<Apps> apps;
-    TextView batterytemp, showmain, showsec, nooverheating;
-    float temp;
-    ImageView coolbutton, tempimg;
-    RecyclerView recyclerView;
-    RecyclerAdapter mAdapter;
-    List<Apps> apps2;
-    int check = 0;
+    private TextView batterytemp, showmain, showsec, nooverheating;
+    private float temp;
+    private ImageView coolbutton, tempimg;
+    private RecyclerView recyclerView;
+    private RecyclerAdapter mAdapter;
+    private int check = 0;
 
-    BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             try {
-                int level = intent.getIntExtra("level", 0);
                 temp = ((float) intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)) / 10;
-
                 batterytemp.setText(temp + "°C");
 
                 if (temp >= 30.0) {
-
                     apps = new ArrayList<>();
-                    apps2 = new ArrayList<>();
                     tempimg.setImageResource(R.drawable.red_cooler);
                     showmain.setText("OVERHEATED");
                     showmain.setTextColor(Color.parseColor("#F22938"));
@@ -71,73 +71,50 @@ public class CoolerCPU extends Fragment {
                     nooverheating.setText("");
 
                     coolbutton.setImageResource(R.drawable.cool_button_blue);
-                    coolbutton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                    coolbutton.setOnClickListener((View.OnClickListener) v -> {
+                        Intent i = new Intent(getActivity(), Cpu_Scanner.class);
+                        startActivity(i);
 
+                        final Handler handler = new Handler();
+                        handler.postDelayed(() -> {
+                            nooverheating.setText("Currently No App causing Overheating");
+                            showmain.setText("NORMAL");
+                            showmain.setTextColor(Color.parseColor("#ffffff"));
+                            showsec.setText("CPU Temperature is GOOD");
+                            showsec.setTextColor(Color.parseColor("#ffffff"));
+                            coolbutton.setImageResource(R.drawable.cooled);
+                            tempimg.setImageResource(R.drawable.blue_cooler);
+                            batterytemp.setText("25.3" + "°C");
+                            recyclerView.setAdapter(null);
 
-                            Intent i = new Intent(getActivity(), Cpu_Scanner.class);
-                            startActivity(i);
+                            ads();
+                        }, 2000);
 
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
+                        coolbutton.setOnClickListener((View.OnClickListener) v1 -> {
+                            LayoutInflater inflater = getActivity().getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.my_toast, null);
 
-//                        getActivity().unregisterReceiver(batteryReceiver);
-                                    nooverheating.setText("Currently No App causing Overheating");
-                                    showmain.setText("NORMAL");
-                                    showmain.setTextColor(Color.parseColor("#ffffff"));
-                                    showsec.setText("CPU Temperature is GOOD");
-                                    showsec.setTextColor(Color.parseColor("#ffffff"));
-                                    coolbutton.setImageResource(R.drawable.cooled);
-                                    tempimg.setImageResource(R.drawable.blue_cooler);
-                                    batterytemp.setText("25.3" + "°C");
-                                    recyclerView.setAdapter(null);
+                            ImageView image = (ImageView) layout.findViewById(R.id.image);
 
-                                }
-                            }, 2000);
+                            TextView text = (TextView) layout.findViewById(R.id.textView1);
+                            text.setText("CPU Temperature is Already Normal.");
 
-
-                            coolbutton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-//                                Toast.makeText(getActivity(), "CPU Temperature is Already Normal", Toast.LENGTH_SHORT).show();
-
-                                    LayoutInflater inflater = getLayoutInflater(getArguments());
-                                    View layout = inflater.inflate(R.layout.my_toast, null);
-
-                                    ImageView image = (ImageView) layout.findViewById(R.id.image);
-
-                                    TextView text = (TextView) layout.findViewById(R.id.textView1);
-                                    text.setText("CPU Temperature is Already Normal.");
-
-                                    Toast toast = new Toast(getActivity());
-                                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
-                                    toast.setDuration(Toast.LENGTH_LONG);
-                                    toast.setView(layout);
-                                    toast.show();
-                                }
-                            });
-                        }
+                            Toast toast = new Toast(getActivity());
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        });
                     });
 
                     if (Build.VERSION.SDK_INT < 23) {
-
                         showsec.setTextAppearance(context, android.R.style.TextAppearance_Medium);
-                        showsec.setTextColor(Color.parseColor("#F22938"));
-
                     } else {
-
                         showsec.setTextAppearance(android.R.style.TextAppearance_Small);
-                        showsec.setTextColor(Color.parseColor("#F22938"));
                     }
-
+                    showsec.setTextColor(Color.parseColor("#F22938"));
 
                     recyclerView.setItemAnimator(new SlideInLeftAnimator());
-//                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
-//                recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
-
                     recyclerView.getItemAnimator().setAddDuration(10000);
 
                     mAdapter = new RecyclerAdapter(apps);
@@ -147,16 +124,10 @@ public class CoolerCPU extends Fragment {
                     recyclerView.computeHorizontalScrollExtent();
                     recyclerView.setAdapter(mAdapter);
                     getAllICONS();
-//                recyclerView.getItemAnimator().setRemoveDuration(1000);
-//                recyclerView.getItemAnimator().setMoveDuration(1000);
-//                recyclerView.getItemAnimator().setChangeDuration(1000);
-
                 }
             } catch (Exception e) {
 
             }
-
-
         }
     };
     View view;
@@ -167,10 +138,8 @@ public class CoolerCPU extends Fragment {
         view = inflater.inflate(R.layout.cpu_cooler, container, false);
 
         try {
-
             getActivity().registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
             recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-
 
             tempimg = (ImageView) view.findViewById(R.id.tempimg);
             showmain = (TextView) view.findViewById(R.id.showmain);
@@ -182,23 +151,20 @@ public class CoolerCPU extends Fragment {
             showsec.setText("CPU Temperature is GOOD");
             nooverheating.setText("Currently No App causing Overheating");
             coolbutton.setImageResource(R.drawable.cooled);
-            coolbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    LayoutInflater inflater = getLayoutInflater(getArguments());
-                    View layout = inflater.inflate(R.layout.my_toast, null);
+            coolbutton.setOnClickListener((View.OnClickListener) v -> {
+                LayoutInflater inflater1 = getActivity().getLayoutInflater();
+                View layout = inflater1.inflate(R.layout.my_toast, null);
 
-                    ImageView image = (ImageView) layout.findViewById(R.id.image);
+                ImageView image = (ImageView) layout.findViewById(R.id.image);
 
-                    TextView text = (TextView) layout.findViewById(R.id.textView1);
-                    text.setText("CPU Temperature is Already Normal.");
+                TextView text = (TextView) layout.findViewById(R.id.textView1);
+                text.setText("CPU Temperature is Already Normal.");
 
-                    Toast toast = new Toast(getActivity());
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setView(layout);
-                    toast.show();
-                }
+                Toast toast = new Toast(getActivity());
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             });
 
             tempimg.setImageResource(R.drawable.blue_cooler);
@@ -208,7 +174,6 @@ public class CoolerCPU extends Fragment {
         } catch (Exception e) {
 
         }
-
 
         return view;
     }
@@ -224,13 +189,9 @@ public class CoolerCPU extends Fragment {
         }
     }
 
-
     public void getAllICONS() {
-
         PackageManager pm = getActivity().getPackageManager();
-
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-
 
         if (packages != null) {
             for (int k = 0; k < packages.size(); k++) {
@@ -240,14 +201,9 @@ public class CoolerCPU extends Fragment {
 
                 if (!packageName.equals("fast.cleaner.battery.saver")) {
 
-//                String size = packages.get(k).metaData.size()+"";
-//                Log.e("Size-->", "" + packageName);
                     Drawable ico = null;
                     try {
-                        String pName = (String) pm.getApplicationLabel(pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA));
                         Apps app = new Apps();
-
-//                    app.setSize("" + pName);
 
                         File file = new File(pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA).publicSourceDir);
                         long size = file.length();
@@ -261,61 +217,46 @@ public class CoolerCPU extends Fragment {
                         Log.e("ico-->", "" + ico);
 
                         if (((a.flags & ApplicationInfo.FLAG_SYSTEM) == 0)) {
-//                        System.out.println(">>>>>>packages is system package"+pi.packageName);
-
                             if (check <= 5) {
                                 check++;
                                 apps.add(app);
                             } else {
                                 getActivity().unregisterReceiver(batteryReceiver);
-//                            batterytemp.setText("25.3" + "°C");
                                 break;
                             }
-
                         }
                         mAdapter.notifyDataSetChanged();
-
 
                     } catch (PackageManager.NameNotFoundException e) {
                         Log.e("ERROR", "Unable to find icon for package '"
                                 + packageName + "': " + e.getMessage());
                     }
-                    // icons.put(processes.get(k).topActivity.getPackageName(),ico);
-
-
                 }
             }
-
         }
 
         if (apps.size() > 1) {
             mAdapter = new RecyclerAdapter(apps);
             mAdapter.notifyDataSetChanged();
         }
-
-
     }
 
+    private void ads() {
+        AdRequest adRequest = new AdRequest.Builder().build();
 
-    @Override
-    public boolean getUserVisibleHint() {
+        InterstitialAd.load(getContext(), "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+                mInterstitialAd.show(getActivity());
+                Log.d("Cleaner", "onAdLoaded");
+            }
 
-//        MainActivity.name.setText("CPU Cooler");
-        return getUserVisibleHint();
-
-    }
-
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-
-        if (isVisibleToUser) {
-//            MainActivity.name.setText("CPU Cooler");
-
-        } else {
-
-        }
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                Log.d("Cleaner", loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
     }
 }

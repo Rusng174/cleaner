@@ -3,10 +3,9 @@ package com.cleaner.emptykesh;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -17,15 +16,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleaner.emptykesh.Classes.Apps;
 import com.cleaner.emptykesh.Fragments.CoolerCPU;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.skyfishjy.library.RippleBackground;
-import com.zys.brokenview.BrokenTouchListener;
-import com.zys.brokenview.BrokenView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,18 +36,13 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class Cpu_Scanner extends AppCompatActivity {
-
+    private InterstitialAd mInterstitialAd;
     ImageView scanner, img_animation, cpu;
-    BrokenView brokenView;
-    BrokenTouchListener listener;
     Scan_Cpu_Apps mAdapter;
     RecyclerView recyclerView;
     List<Apps> app = null;
-    PackageManager pm;
-    List<ApplicationInfo> packages;
     TextView cooledcpu;
     RelativeLayout rel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,9 +162,10 @@ public class Cpu_Scanner extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animator animation1) {
                         rippleBackground.stopRippleAnimation();
-
                         final Handler handler61 = new Handler();
-                        handler61.postDelayed(() -> finish(), 1000);
+                        handler61.postDelayed(() -> {
+                            finish();
+                        }, 1000);
                     }
 
                     @Override

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -26,7 +27,7 @@ import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
 
-public class PowerSaving_Complition extends Activity {
+public class PowerSaving_Complition extends AppCompatActivity {
     DecoView arcView;
     TextView ist, sec, thir, fou, completion;
     ImageView istpic, secpic, thirpic, foupic;

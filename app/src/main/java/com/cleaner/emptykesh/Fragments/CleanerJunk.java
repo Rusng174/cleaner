@@ -21,24 +21,22 @@ import androidx.fragment.app.Fragment;
 
 import com.cleaner.emptykesh.Alaram_Junk;
 import com.cleaner.emptykesh.R;
-import com.cleaner.emptykesh.Sacnning_Junk;
+import com.cleaner.emptykesh.SacnningJunkActivity;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 import java.util.Random;
 
 import static android.content.Context.ALARM_SERVICE;
 
 public class CleanerJunk extends Fragment {
-
-    public static ImageView mainbutton;
-    ImageView mainbrush, cache, temp, residue, system;
-    TextView maintext, cachetext, temptext, residuetext, systemtext;
-    int checkvar = 0;
-    int alljunk;
-
-    SharedPreferences sharedpreferences;
-    SharedPreferences.Editor editor;
-
-    View view;
+    private InterstitialAd mInterstitialAd;
+    private static ImageView mainbutton;
+    private ImageView mainbrush, cache, temp, residue, system;
+    private TextView maintext, cachetext, temptext, residuetext, systemtext;
+    private int alljunk;
+    private SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
+    private View view;
 
     @Nullable
     @Override
@@ -51,7 +49,6 @@ public class CleanerJunk extends Fragment {
         residue = (ImageView) view.findViewById(R.id.residue);
         system = (ImageView) view.findViewById(R.id.system);
 
-
         maintext = (TextView) view.findViewById(R.id.maintext);
         cachetext = (TextView) view.findViewById(R.id.cachetext);
         temptext = (TextView) view.findViewById(R.id.temptext);
@@ -59,9 +56,7 @@ public class CleanerJunk extends Fragment {
         systemtext = (TextView) view.findViewById(R.id.systemtext);
 
         try {
-
             sharedpreferences = getActivity().getSharedPreferences("waseem", Context.MODE_PRIVATE);
-
 
             if (sharedpreferences.getString("junk", "1").equals("1")) {
                 mainbrush.setImageResource(R.drawable.junk_red);
@@ -99,7 +94,6 @@ public class CleanerJunk extends Fragment {
 
                 systemtext.setText(proc4 + " MB");
                 systemtext.setTextColor(Color.parseColor("#F22938"));
-
             } else {
                 mainbrush.setImageResource(R.drawable.junk_blue);
                 mainbutton.setImageResource(R.drawable.cleaned);
@@ -107,7 +101,6 @@ public class CleanerJunk extends Fragment {
                 temp.setImageResource(R.drawable.temp2);
                 residue.setImageResource(R.drawable.res2);
                 system.setImageResource(R.drawable.sys2);
-
 
                 maintext.setText("CRYSTAL CLEAR");
                 maintext.setTextColor(Color.parseColor("#24D149"));
@@ -125,139 +118,69 @@ public class CleanerJunk extends Fragment {
                 systemtext.setTextColor(Color.parseColor("#24D149"));
             }
 
+            mainbutton.setOnClickListener((View.OnClickListener) v -> {
+                if (sharedpreferences.getString("junk", "1").equals("1")) {
+                    Intent i = new Intent(getActivity(), SacnningJunkActivity.class);
+                    i.putExtra("junk", alljunk + "");
+                    startActivity(i);
 
-            mainbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                    final Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        mainbrush.setImageResource(R.drawable.junk_blue);
+                        mainbutton.setImageResource(R.drawable.cleaned);
+                        cache.setImageResource(R.drawable.cache2);
+                        temp.setImageResource(R.drawable.temp2);
+                        residue.setImageResource(R.drawable.res2);
+                        system.setImageResource(R.drawable.sys2);
 
-                    if (sharedpreferences.getString("junk", "1").equals("1")) {
+                        maintext.setText("CRYSTAL CLEAR");
+                        maintext.setTextColor(Color.parseColor("#24D149"));
 
-                        Intent i = new Intent(getActivity(), Sacnning_Junk.class);
-                        i.putExtra("junk", alljunk + "");
-                        startActivity(i);
+                        cachetext.setText(0 + " MB");
+                        cachetext.setTextColor(Color.parseColor("#24D149"));
 
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Do something after 100ms
+                        temptext.setText(0 + " MB");
+                        temptext.setTextColor(Color.parseColor("#24D149"));
 
+                        residuetext.setText(0 + " MB");
+                        residuetext.setTextColor(Color.parseColor("#24D149"));
 
-                                mainbrush.setImageResource(R.drawable.junk_blue);
-                                mainbutton.setImageResource(R.drawable.cleaned);
-                                cache.setImageResource(R.drawable.cache2);
-                                temp.setImageResource(R.drawable.temp2);
-                                residue.setImageResource(R.drawable.res2);
-                                system.setImageResource(R.drawable.sys2);
-
-
-                                maintext.setText("CRYSTAL CLEAR");
-                                maintext.setTextColor(Color.parseColor("#24D149"));
-
-                                cachetext.setText(0 + " MB");
-                                cachetext.setTextColor(Color.parseColor("#24D149"));
-
-                                temptext.setText(0 + " MB");
-                                temptext.setTextColor(Color.parseColor("#24D149"));
-
-                                residuetext.setText(0 + " MB");
-                                residuetext.setTextColor(Color.parseColor("#24D149"));
-
-                                systemtext.setText(0 + " MB");
-                                systemtext.setTextColor(Color.parseColor("#24D149"));
+                        systemtext.setText(0 + " MB");
+                        systemtext.setTextColor(Color.parseColor("#24D149"));
 
 
-                                editor = sharedpreferences.edit();
-                                editor.putString("junk", "0");
-                                editor.commit();
+                        editor = sharedpreferences.edit();
+                        editor.putString("junk", "0");
+                        editor.apply();
 
+                        Intent intent = new Intent(getActivity(), Alaram_Junk.class);
 
-                                Intent intent = new Intent(getActivity(), Alaram_Junk.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
+                                intent, PendingIntent.FLAG_ONE_SHOT);
 
-                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
-                                        intent, PendingIntent.FLAG_ONE_SHOT);
+                        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (600 * 1000), pendingIntent);
 
-                                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
-                                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (600 * 1000), pendingIntent);
+                    }, 2000);
+                } else {
+                    LayoutInflater inflater1 = getActivity().getLayoutInflater();
+                    View layout = inflater1.inflate(R.layout.my_toast, null);
 
-                            }
-                        }, 2000);
-                    } else {
-//                        Toast.makeText(getActivity(), "No Junk Files ALready Cleaned.", Toast.LENGTH_LONG).show();
+                    TextView text = (TextView) layout.findViewById(R.id.textView1);
+                    text.setText("No Junk Files ALready Cleaned.");
 
-                        LayoutInflater inflater = getLayoutInflater(getArguments());
-                        View layout = inflater.inflate(R.layout.my_toast, null);
-
-                        ImageView image = (ImageView) layout.findViewById(R.id.image);
-
-                        TextView text = (TextView) layout.findViewById(R.id.textView1);
-                        text.setText("No Junk Files ALready Cleaned.");
-
-                        Toast toast = new Toast(getActivity());
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setView(layout);
-                        toast.show();
-                    }
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
                 }
             });
-
-
-//            Random ran1 = new Random();
-//            final int proc1 = ran1.nextInt(20) + 5;
-//
-//            Random ran2 = new Random();
-//            final int proc2 = ran2.nextInt(15) + 10;
-//
-//            Random ran3 = new Random();
-//            final int proc3 = ran3.nextInt(30) + 15;
-//
-//            Random ran4 = new Random();
-//            final int proc4 = ran4.nextInt(25) + 10;
-//
-//            alljunk=proc1+proc2+proc3+proc4;
-//
-//            maintext.setText(alljunk+" MB");
-//            maintext.setTextColor(Color.parseColor("#F22938"));
-//
-//            cachetext.setText(proc1+" MB");
-//            cachetext.setTextColor(Color.parseColor("#F22938"));
-//
-//            temptext.setText(proc2+" MB");
-//            temptext.setTextColor(Color.parseColor("#F22938"));
-//
-//            residuetext.setText(proc3+" MB");
-//            residuetext.setTextColor(Color.parseColor("#F22938"));
-//
-//            systemtext.setText(proc4+" MB");
-//            systemtext.setTextColor(Color.parseColor("#F22938"));
 
         } catch (Exception e) {
 
         }
 
         return view;
-    }
-
-
-    @Override
-    public boolean getUserVisibleHint() {
-
-//        MainActivity.name.setText("Junk Cleaner");
-        return getUserVisibleHint();
-
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-
-        if (isVisibleToUser) {
-//            MainActivity.name.setText("Junk Cleaner");
-
-        } else {
-
-        }
     }
 }

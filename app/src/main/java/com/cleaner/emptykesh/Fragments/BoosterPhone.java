@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,11 +26,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.cleaner.emptykesh.Alaram_Booster;
 import com.cleaner.emptykesh.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
@@ -52,7 +58,6 @@ import static android.content.Context.ALARM_SERVICE;
 public class BoosterPhone extends Fragment {
 
     public static ImageView optimizebutton;
-    int mb = 1024 * 1024;
     View view;
     DecoView arcView;
     TextView scanning, centree, totalram, usedram, appused, appsfreed, processes, top, bottom, ramperct;
@@ -66,6 +71,8 @@ public class BoosterPhone extends Fragment {
     PulsatorLayout pulsator;
 
     RippleBackground rippleBackground;
+
+    private InterstitialAd mInterstitialAd;
 
     @Nullable
     @Override
@@ -109,7 +116,6 @@ public class BoosterPhone extends Fragment {
 
             rippleBackground.startRippleAnimation();
             optimizebutton.setOnClickListener((View.OnClickListener) v -> {
-
                 if (sharedpreferences.getString("booster", "1").equals("1")) {
                     optimize();
 
@@ -147,6 +153,11 @@ public class BoosterPhone extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        view.findViewById(R.id.privacy).setOnClickListener(view -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cleaner-pro-master.flycricket.io/privacy.html"));
+            startActivity(browserIntent);
+        });
 
         return view;
     }
@@ -269,6 +280,8 @@ public class BoosterPhone extends Fragment {
                 appused.setText(Math.abs(getUsedMemorySize() - x - 30) + " MB/ ");
 
                 processes.setText(y - proc + "");
+
+                ads();
             }
 
             @Override
@@ -361,7 +374,6 @@ public class BoosterPhone extends Fragment {
                                     centree.setText(getUsedMemorySize() + " MB");
 
                                     if (sharedpreferences.getString("booster", "1").equals("0")) {
-
                                         centree.setText(sharedpreferences.getString("value", "50MB"));
                                     }
 
@@ -473,5 +485,24 @@ public class BoosterPhone extends Fragment {
             if (packageInfo.packageName.equals(myPackage)) continue;
             mActivityManager.killBackgroundProcesses(packageInfo.packageName);
         }
+    }
+
+    private void ads() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(getContext(), "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+                mInterstitialAd.show(getActivity());
+                Log.d("Cleaner", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                Log.d("Cleaner", loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
     }
 }

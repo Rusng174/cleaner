@@ -1,6 +1,5 @@
 package com.cleaner.emptykesh;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Pick_Apps extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Pick_Apps extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     ImageView addcontact, addplaystore, addcalculator, addcamera, addclock, addmap;
