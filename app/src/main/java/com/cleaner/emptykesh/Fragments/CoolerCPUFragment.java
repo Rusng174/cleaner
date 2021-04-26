@@ -27,10 +27,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.dto.Apps;
 import com.cleaner.emptykesh.CpuScannerActivity;
 import com.cleaner.emptykesh.R;
 import com.cleaner.emptykesh.RecyclerAdapter;
+import com.cleaner.emptykesh.dto.Apps;
 import com.cleaner.emptykesh.service.SharedPref;
 import com.cleaner.emptykesh.service.TimeStampService;
 import com.google.android.gms.ads.AdRequest;
@@ -44,6 +44,8 @@ import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
+import static com.cleaner.emptykesh.service.Constants.AD_CROSS_PAGE_ID;
 
 public class CoolerCPUFragment extends AbsFragment {
 
@@ -251,7 +253,7 @@ public class CoolerCPUFragment extends AbsFragment {
 
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(getContext(), "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(getContext(), AD_CROSS_PAGE_ID, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 mInterstitialAd = interstitialAd;

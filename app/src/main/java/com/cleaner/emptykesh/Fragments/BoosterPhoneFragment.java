@@ -53,6 +53,7 @@ import java.util.regex.Pattern;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.ALARM_SERVICE;
+import static com.cleaner.emptykesh.service.Constants.AD_CROSS_PAGE_ID;
 
 public class BoosterPhoneFragment extends AbsFragment {
 
@@ -489,7 +490,7 @@ public class BoosterPhoneFragment extends AbsFragment {
 
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(getContext(), "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(getContext(), AD_CROSS_PAGE_ID, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 mInterstitialAd = interstitialAd;

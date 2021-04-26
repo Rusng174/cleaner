@@ -44,6 +44,8 @@ import java.util.TimerTask;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
+import static com.cleaner.emptykesh.service.Constants.AD_CROSS_PAGE_ID;
+
 public class SacnningJunkActivity extends AppCompatActivity {
 
     public List<Apps> apps;
@@ -335,7 +337,7 @@ public class SacnningJunkActivity extends AppCompatActivity {
 
     private void ads() {
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(SacnningJunkActivity.this, "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(SacnningJunkActivity.this, AD_CROSS_PAGE_ID, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 mInterstitialAd = interstitialAd;

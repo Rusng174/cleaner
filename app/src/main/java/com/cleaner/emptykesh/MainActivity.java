@@ -30,6 +30,8 @@ import java.util.concurrent.TimeUnit;
 import io.branch.referral.Branch;
 import io.branch.referral.validators.IntegrationValidator;
 
+import static com.cleaner.emptykesh.service.Constants.AD_START_ID;
+
 public class MainActivity extends FragmentActivity {
 
     private SharedPreferences sharedpreferences;
@@ -139,7 +141,7 @@ public class MainActivity extends FragmentActivity {
 
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(MainActivity.this, "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(MainActivity.this, AD_START_ID, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 mInterstitialAd = interstitialAd;

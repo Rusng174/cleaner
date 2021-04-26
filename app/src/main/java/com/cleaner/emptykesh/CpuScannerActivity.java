@@ -37,6 +37,8 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
+import static com.cleaner.emptykesh.service.Constants.AD_CROSS_PAGE_ID;
+
 public class CpuScannerActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private ImageView scanner, img_animation, cpu;
@@ -218,7 +220,7 @@ public class CpuScannerActivity extends AppCompatActivity {
         }
 
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(CpuScannerActivity.this, "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(CpuScannerActivity.this, AD_CROSS_PAGE_ID, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 mInterstitialAd = interstitialAd;
