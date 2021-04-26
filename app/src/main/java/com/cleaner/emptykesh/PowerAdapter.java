@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.Classes.PowerItem;
+import com.cleaner.emptykesh.dto.PowerItem;
 
 import java.util.List;
 

@@ -28,8 +28,7 @@ import java.util.Random;
 
 import static android.content.Context.ALARM_SERVICE;
 
-public class CleanerJunk extends Fragment {
-    private InterstitialAd mInterstitialAd;
+public class CleanerJunkFragment extends AbsFragment {
     private static ImageView mainbutton;
     private ImageView mainbrush, cache, temp, residue, system;
     private TextView maintext, cachetext, temptext, residuetext, systemtext;
@@ -148,7 +147,6 @@ public class CleanerJunk extends Fragment {
                         systemtext.setText(0 + " MB");
                         systemtext.setTextColor(Color.parseColor("#24D149"));
 
-
                         editor = sharedpreferences.edit();
                         editor.putString("junk", "0");
                         editor.apply();
@@ -160,7 +158,6 @@ public class CleanerJunk extends Fragment {
 
                         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
                         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (600 * 1000), pendingIntent);
-
                     }, 2000);
                 } else {
                     LayoutInflater inflater1 = getActivity().getLayoutInflater();

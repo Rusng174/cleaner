@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.cleaner.emptykesh.Fragments.BoosterPhone;
+import com.cleaner.emptykesh.Fragments.BoosterPhoneFragment;
 
 public final class Alaram_Booster extends BroadcastReceiver {
     SharedPreferences.Editor editor;
@@ -15,20 +15,14 @@ public final class Alaram_Booster extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         sharedpreferences = context.getSharedPreferences("waseem", Context.MODE_PRIVATE);
-//        Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
-
-
-        /// when memory is orveloaded or increased
-
-
         editor = sharedpreferences.edit();
         editor.putString("booster", "1");
-        editor.commit();
+        editor.apply();
 
         try {
-            BoosterPhone.optimizebutton.setBackgroundResource(0);
-            BoosterPhone.optimizebutton.setImageResource(0);
-            BoosterPhone.optimizebutton.setImageResource(R.drawable.optimize);
+            BoosterPhoneFragment.optimizebutton.setBackgroundResource(0);
+            BoosterPhoneFragment.optimizebutton.setImageResource(0);
+            BoosterPhoneFragment.optimizebutton.setImageResource(R.drawable.optimize);
         } catch (Exception e) {
 
         }

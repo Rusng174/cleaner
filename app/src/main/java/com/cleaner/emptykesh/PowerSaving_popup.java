@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.Classes.PowerItem;
+import com.cleaner.emptykesh.dto.PowerItem;
 
 import java.util.ArrayList;
 import java.util.List;

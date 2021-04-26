@@ -78,7 +78,7 @@
             android:name=".SacnningJunkActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Cpu_Scanner"
+            android:name=".CpuScannerActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Pick_Apps"

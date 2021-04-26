@@ -14,11 +14,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.cleaner.emptykesh.Broadcast.AlarmReceiver;
 import com.cleaner.emptykesh.PageAdapter.MyPagerAdapter;
+import com.cleaner.emptykesh.service.SharedPref;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.tabs.TabLayout;
@@ -38,7 +37,6 @@ public class MainActivity extends FragmentActivity {
     private ScheduledExecutorService scheduler;
 
     private final Branch.BranchReferralInitListener branchReferralInitListener = (linkProperties, error) -> {
-
         if (error == null) {
             Log.i("BRANCH SDK SplashActiv", linkProperties.toString());
         } else {
@@ -73,16 +71,11 @@ public class MainActivity extends FragmentActivity {
         long intendedTime = firingCal.getTimeInMillis();
         long currentTime = currentCal.getTimeInMillis();
 
-        if (intendedTime >= currentTime) {
-            alarmManager.setRepeating(AlarmManager.RTC, intendedTime, AlarmManager.INTERVAL_DAY, pendingIntent);
-        } else {
-            // set from next day
-            // you might consider using calendar.add() for adding one day to the current day
+        if (intendedTime < currentTime) {
             firingCal.add(Calendar.DAY_OF_MONTH, 1);
             intendedTime = firingCal.getTimeInMillis();
-
-            alarmManager.setRepeating(AlarmManager.RTC, intendedTime, AlarmManager.INTERVAL_DAY, pendingIntent);
         }
+        alarmManager.setRepeating(AlarmManager.RTC, intendedTime, AlarmManager.INTERVAL_DAY, pendingIntent);
 
         final Thread.UncaughtExceptionHandler oldHandler =
                 Thread.getDefaultUncaughtExceptionHandler();
@@ -109,7 +102,7 @@ public class MainActivity extends FragmentActivity {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final ViewPager viewPager = findViewById(R.id.pager);
         final MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
@@ -153,6 +146,8 @@ public class MainActivity extends FragmentActivity {
                 mInterstitialAd.show(MainActivity.this);
                 editor.putBoolean("onAdLoaded", true);
                 editor.commit();
+
+                SharedPref.INSTANCE.saveTimeStamp(MainActivity.this, System.currentTimeMillis());
                 Log.d("Cleaner", "onAdLoaded");
             }
 

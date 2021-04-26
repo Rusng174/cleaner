@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.Classes.Apps;
+import com.cleaner.emptykesh.dto.Apps;
 
 import java.util.List;
 

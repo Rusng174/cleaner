@@ -21,8 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.Classes.Apps;
-import com.cleaner.emptykesh.Fragments.CoolerCPU;
+import com.cleaner.emptykesh.Fragments.CoolerCPUFragment;
+import com.cleaner.emptykesh.dto.Apps;
+import com.cleaner.emptykesh.service.SharedPref;
+import com.cleaner.emptykesh.service.TimeStampService;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -35,14 +37,14 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class Cpu_Scanner extends AppCompatActivity {
+public class CpuScannerActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
-    ImageView scanner, img_animation, cpu;
-    Scan_Cpu_Apps mAdapter;
-    RecyclerView recyclerView;
+    private ImageView scanner, img_animation, cpu;
+    private Scan_Cpu_Apps mAdapter;
+    private RecyclerView recyclerView;
     List<Apps> app = null;
-    TextView cooledcpu;
-    RelativeLayout rel;
+    private TextView cooledcpu;
+    private RelativeLayout rel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +92,7 @@ public class Cpu_Scanner extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setItemAnimator(new SlideInLeftAnimator());
 
-        mAdapter = new Scan_Cpu_Apps(CoolerCPU.apps);
+        mAdapter = new Scan_Cpu_Apps(CoolerCPUFragment.apps);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
@@ -164,7 +166,7 @@ public class Cpu_Scanner extends AppCompatActivity {
                         rippleBackground.stopRippleAnimation();
                         final Handler handler61 = new Handler();
                         handler61.postDelayed(() -> {
-                            finish();
+                            ads();
                         }, 1000);
                     }
 
@@ -184,7 +186,6 @@ public class Cpu_Scanner extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void add(String text, int position) {
@@ -198,14 +199,39 @@ public class Cpu_Scanner extends AppCompatActivity {
     public void remove(int position) {
         mAdapter.notifyItemRemoved(position);
         try {
-            CoolerCPU.apps.remove(position);
+            CoolerCPUFragment.apps.remove(position);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
     @Override
     public void onBackPressed() {
+    }
+
+    private void ads() {
+        Long prevTime = SharedPref.INSTANCE.getTimeStamp(CpuScannerActivity.this);
+        Long curTime = System.currentTimeMillis();
+        if (TimeStampService.isLessThen30Sec(prevTime, curTime)) {
+            CpuScannerActivity.this.finish();
+            return;
+        }
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(CpuScannerActivity.this, "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+                mInterstitialAd.show(CpuScannerActivity.this);
+                CpuScannerActivity.this.finish();
+                Log.d("Cleaner", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                Log.d("Cleaner", loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
     }
 }

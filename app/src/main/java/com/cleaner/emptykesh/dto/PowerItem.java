@@ -1,4 +1,4 @@
-package com.cleaner.emptykesh.Classes;
+package com.cleaner.emptykesh.dto;
 
 public class PowerItem {
 

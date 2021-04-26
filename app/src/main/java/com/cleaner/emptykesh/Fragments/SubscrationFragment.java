@@ -7,14 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.cleaner.emptykesh.R;
 
-public class SubscrationFragment extends Fragment {
+public class SubscrationFragment extends AbsFragment {
 
-    View view;
-
+    private View view;
 
     @Nullable
     @Override

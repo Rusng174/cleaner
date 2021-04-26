@@ -13,25 +13,10 @@ public final class Alaram_Junk extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         sharedpreferences = context.getSharedPreferences("waseem", Context.MODE_PRIVATE);
-//        Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
-
-
-        /// notify user to clean junk files that junk has been appeared
-
 
         editor = sharedpreferences.edit();
         editor.putString("junk", "1");
-        editor.commit();
-
-//        try {
-//            JunkCleaner.mainbutton.setBackgroundResource(0);
-//            JunkCleaner.mainbutton.setImageResource(0);
-//            JunkCleaner.mainbutton.setImageResource(R.drawable.clean);
-//        }
-//        catch(Exception e)
-//        {
-//
-//        }
+        editor.apply();
 
     }
 }

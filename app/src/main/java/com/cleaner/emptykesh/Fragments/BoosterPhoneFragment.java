@@ -28,10 +28,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.cleaner.emptykesh.Alaram_Booster;
 import com.cleaner.emptykesh.R;
+import com.cleaner.emptykesh.service.SharedPref;
+import com.cleaner.emptykesh.service.TimeStampService;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -50,27 +51,24 @@ import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import pl.bclogic.pulsator4droid.library.PulsatorLayout;
-
 import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.ALARM_SERVICE;
 
-public class BoosterPhone extends Fragment {
+public class BoosterPhoneFragment extends AbsFragment {
 
     public static ImageView optimizebutton;
-    View view;
-    DecoView arcView;
-    TextView scanning, centree, totalram, usedram, appused, appsfreed, processes, top, bottom, ramperct;
-    LinearLayout scanlay, optimizelay;
-    TimerTask timer = null;
-    TimerTask timer2 = null;
-    int x, y;
-    int counter = 0;
-    SharedPreferences sharedpreferences;
-    SharedPreferences.Editor editor;
-    PulsatorLayout pulsator;
+    private View view;
+    private DecoView arcView;
+    private TextView scanning, centree, totalram, usedram, appused, appsfreed, processes, top, bottom, ramperct;
+    private LinearLayout scanlay, optimizelay;
+    private TimerTask timer = null;
+    private TimerTask timer2 = null;
+    private int x, y;
+    private int counter = 0;
+    private SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
 
-    RippleBackground rippleBackground;
+    private RippleBackground rippleBackground;
 
     private InterstitialAd mInterstitialAd;
 
@@ -80,7 +78,6 @@ public class BoosterPhone extends Fragment {
         view = inflater.inflate(R.layout.phone_booster, container, false);
 
         rippleBackground = view.findViewById(R.id.content);
-        pulsator = view.findViewById(R.id.pulsator);
         arcView = (DecoView) view.findViewById(R.id.dynamicArcView2);
         scanning = (TextView) view.findViewById(R.id.scanning);
         scanlay = (LinearLayout) view.findViewById(R.id.scanlay);
@@ -123,7 +120,6 @@ public class BoosterPhone extends Fragment {
                     editor.putString("booster", "0");
                     editor.apply();
 
-
                     rippleBackground.startRippleAnimation();
                     Intent intent = new Intent(getActivity(), Alaram_Booster.class);
 
@@ -162,13 +158,12 @@ public class BoosterPhone extends Fragment {
         return view;
     }
 
-
     public void optimize() {
         RotateAnimation rotate = new RotateAnimation(0, 359, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(5000);
         rotate.setInterpolator(new LinearInterpolator());
 
-        ImageView image = (ImageView) view.findViewById(R.id.circularlines);
+        ImageView image = view.findViewById(R.id.circularlines);
 
         image.startAnimation(rotate);
 
@@ -235,7 +230,6 @@ public class BoosterPhone extends Fragment {
         animation.setDuration(5000);  // animation duration
         animation.setRepeatCount(0);
         animation.setInterpolator(new LinearInterpolator());// animation repeat count
-//        animation.setRepeatMode(2);   // repeat animation (left to right, right to left )
         animation.setFillAfter(true);
 
         img_animation.startAnimation(animation);
@@ -254,7 +248,6 @@ public class BoosterPhone extends Fragment {
             public void onAnimationEnd(Animation animation) {
                 scanlay.setVisibility(View.GONE);
                 optimizelay.setVisibility(View.VISIBLE);
-//                optimizebutton.setOnClickListener(null);
                 optimizebutton.setImageResource(R.drawable.optimized);
 
 
@@ -488,6 +481,12 @@ public class BoosterPhone extends Fragment {
     }
 
     private void ads() {
+        Long prevTime = SharedPref.INSTANCE.getTimeStamp(getActivity());
+        Long curTime = System.currentTimeMillis();
+        if (TimeStampService.isLessThen30Sec(prevTime, curTime)) {
+            return;
+        }
+
         AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(getContext(), "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {

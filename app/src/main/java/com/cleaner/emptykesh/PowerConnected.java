@@ -6,8 +6,6 @@ import android.content.Intent;
 
 public class PowerConnected extends BroadcastReceiver {
 
-    // bROAD CAST THAT lISTEN fOR charger Connected Events
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent i = new Intent(context, MainActivity.class);

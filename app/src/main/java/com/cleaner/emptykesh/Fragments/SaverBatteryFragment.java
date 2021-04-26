@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.cleaner.emptykesh.Noraml_Mode;
 import com.cleaner.emptykesh.PowerSaving_popup;
@@ -24,14 +23,13 @@ import com.cleaner.emptykesh.Ultra_PopUp;
 
 import me.itangqi.waveloadingview.WaveLoadingView;
 
-public class SaverBattery extends Fragment {
-
-    View view;
-    WaveLoadingView mWaveLoadingView;
-    ImageView powersaving, ultrasaving, normal;
-    TextView hourn, minutes, hourp, minutep, houru, minutesu, hourmain, minutesmain;
-    SharedPreferences sharedpreferences;
-    SharedPreferences.Editor editor;
+public class SaverBatteryFragment extends AbsFragment {
+    private View view;
+    private WaveLoadingView mWaveLoadingView;
+    private ImageView powersaving, ultrasaving, normal;
+    private TextView hourn, minutes, hourp, minutep, houru, minutesu, hourmain, minutesmain;
+    private SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
         @Override
@@ -39,7 +37,6 @@ public class SaverBattery extends Fragment {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
 
             mWaveLoadingView.setProgressValue(level);
-//            mWaveLoadingView.setBottomTitle(level+"%");
             mWaveLoadingView.setCenterTitle(level + "%");
 
             if (level <= 5) {
@@ -242,7 +239,6 @@ public class SaverBattery extends Fragment {
                     minutesmain.setText(0 + "");
                 }
             }
-
         }
     };
 
@@ -266,39 +262,28 @@ public class SaverBattery extends Fragment {
         getActivity().registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         try {
-
-            powersaving.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getActivity(), PowerSaving_popup.class);
-                    i.putExtra("hour", hourp.getText());
-                    i.putExtra("minutes", minutep.getText());
-                    i.putExtra("minutesnormal", minutes.getText());
-                    i.putExtra("hournormal", hourn.getText());
-                    startActivity(i);
-                }
+            powersaving.setOnClickListener(v -> {
+                Intent i = new Intent(getActivity(), PowerSaving_popup.class);
+                i.putExtra("hour", hourp.getText());
+                i.putExtra("minutes", minutep.getText());
+                i.putExtra("minutesnormal", minutes.getText());
+                i.putExtra("hournormal", hourn.getText());
+                startActivity(i);
             });
 
-            ultrasaving.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getActivity(), Ultra_PopUp.class);
-                    i.putExtra("hour", houru.getText());
-                    i.putExtra("minutes", minutesu.getText());
-                    i.putExtra("minutesnormal", minutes.getText());
-                    i.putExtra("hournormal", hourn.getText());
-                    startActivity(i);
-                }
+            ultrasaving.setOnClickListener(v -> {
+                Intent i = new Intent(getActivity(), Ultra_PopUp.class);
+                i.putExtra("hour", houru.getText());
+                i.putExtra("minutes", minutesu.getText());
+                i.putExtra("minutesnormal", minutes.getText());
+                i.putExtra("hournormal", hourn.getText());
+                startActivity(i);
             });
 
-            normal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getActivity(), Noraml_Mode.class);
-                    startActivity(i);
-                }
+            normal.setOnClickListener(v -> {
+                Intent i = new Intent(getActivity(), Noraml_Mode.class);
+                startActivity(i);
             });
-
 
             mWaveLoadingView.setShapeType(WaveLoadingView.ShapeType.CIRCLE);
             mWaveLoadingView.setCenterTitleColor(Color.parseColor("#FFFFFF"));
@@ -310,9 +295,6 @@ public class SaverBattery extends Fragment {
             mWaveLoadingView.setTopTitleStrokeColor(Color.BLUE);
             mWaveLoadingView.setTopTitleStrokeWidth(3);
             mWaveLoadingView.setAnimDuration(3000);
-//        mWaveLoadingView.pauseAnimation();
-//        mWaveLoadingView.resumeAnimation();
-//        mWaveLoadingView.cancelAnimation();
             mWaveLoadingView.startAnimation();
 
 
@@ -321,14 +303,12 @@ public class SaverBattery extends Fragment {
         }
 
         return view;
-
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-//        MainActivity.name.setText("Battery Saver");
         getActivity().registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
@@ -341,20 +321,4 @@ public class SaverBattery extends Fragment {
 
         }
     }
-
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-
-        if (isVisibleToUser) {
-//            MainActivity.name.setText("Battery Saver");
-
-        } else {
-
-        }
-    }
-
-
 }

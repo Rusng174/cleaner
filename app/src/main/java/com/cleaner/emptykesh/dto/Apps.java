@@ -1,4 +1,4 @@
-package com.cleaner.emptykesh.Classes;
+package com.cleaner.emptykesh.dto;
 
 import android.graphics.drawable.Drawable;
 

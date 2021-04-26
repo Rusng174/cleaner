@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.Classes.Apps;
+import com.cleaner.emptykesh.dto.Apps;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
@@ -205,12 +205,7 @@ public class SacnningJunkActivity extends AppCompatActivity {
                     rippleBackground.stopRippleAnimation();
 
                     final Handler handler71 = new Handler();
-                    handler71.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ads();
-                        }
-                    }, 1000);
+                    handler71.postDelayed(() -> ads(), 1000);
                 }
 
                 @Override
@@ -263,9 +258,6 @@ public class SacnningJunkActivity extends AppCompatActivity {
             avi2.show();
             avi6.show();
         }
-
-
-        // or avi.smoothToShow();
     }
 
     void stopAnim() {

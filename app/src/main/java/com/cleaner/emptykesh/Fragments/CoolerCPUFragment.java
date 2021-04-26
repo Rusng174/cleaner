@@ -24,14 +24,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cleaner.emptykesh.Classes.Apps;
-import com.cleaner.emptykesh.Cpu_Scanner;
+import com.cleaner.emptykesh.dto.Apps;
+import com.cleaner.emptykesh.CpuScannerActivity;
 import com.cleaner.emptykesh.R;
 import com.cleaner.emptykesh.RecyclerAdapter;
+import com.cleaner.emptykesh.service.SharedPref;
+import com.cleaner.emptykesh.service.TimeStampService;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -44,7 +45,7 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class CoolerCPU extends Fragment {
+public class CoolerCPUFragment extends AbsFragment {
 
     private InterstitialAd mInterstitialAd;
     public static List<Apps> apps;
@@ -72,7 +73,7 @@ public class CoolerCPU extends Fragment {
 
                     coolbutton.setImageResource(R.drawable.cool_button_blue);
                     coolbutton.setOnClickListener((View.OnClickListener) v -> {
-                        Intent i = new Intent(getActivity(), Cpu_Scanner.class);
+                        Intent i = new Intent(getActivity(), CpuScannerActivity.class);
                         startActivity(i);
 
                         final Handler handler = new Handler();
@@ -242,6 +243,12 @@ public class CoolerCPU extends Fragment {
     }
 
     private void ads() {
+        Long prevTime = SharedPref.INSTANCE.getTimeStamp(getActivity());
+        Long curTime = System.currentTimeMillis();
+        if (TimeStampService.isLessThen30Sec(prevTime, curTime)) {
+            return;
+        }
+
         AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(getContext(), "ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {

@@ -4,13 +4,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.cleaner.emptykesh.Fragments.BoosterPhone;
-import com.cleaner.emptykesh.Fragments.CleanerJunk;
-import com.cleaner.emptykesh.Fragments.CoolerCPU;
-import com.cleaner.emptykesh.Fragments.SaverBattery;
+import com.cleaner.emptykesh.Fragments.BoosterPhoneFragment;
+import com.cleaner.emptykesh.Fragments.CleanerJunkFragment;
+import com.cleaner.emptykesh.Fragments.CoolerCPUFragment;
+import com.cleaner.emptykesh.Fragments.SaverBatteryFragment;
 
 public class MyPagerAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+    private int mNumOfTabs;
 
     public MyPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
@@ -19,24 +19,20 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
             case 0:
-                BoosterPhone tab1 = new BoosterPhone();
+                BoosterPhoneFragment tab1 = new BoosterPhoneFragment();
                 return tab1;
             case 1:
-                SaverBattery tab2 = new SaverBattery();
+                SaverBatteryFragment tab2 = new SaverBatteryFragment();
                 return tab2;
             case 2:
-                CoolerCPU tab3 = new CoolerCPU();
+                CoolerCPUFragment tab3 = new CoolerCPUFragment();
                 return tab3;
             case 3:
-                CleanerJunk tab4 = new CleanerJunk();
+                CleanerJunkFragment tab4 = new CleanerJunkFragment();
                 return tab4;
 
-//      case 4:
-//        SubscrationFragment tab5 = new SubscrationFragment();
-//        return tab5;
             default:
                 return null;
         }
@@ -47,4 +43,3 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
         return mNumOfTabs;
     }
 }
-
