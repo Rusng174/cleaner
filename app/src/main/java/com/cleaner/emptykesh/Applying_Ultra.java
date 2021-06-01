@@ -210,7 +210,7 @@ public class Applying_Ultra extends AppCompatActivity {
 
 //            Toast.makeText(getApplicationContext(),"onActivityResult",Toast.LENGTH_LONG).show();
             //do your code
-            PowerSaving_Complition.setAutoOrientationEnabled(getApplicationContext(), false);
+            PowerSavingCompleteActivity.setAutoOrientationEnabled(getApplicationContext(), false);
 
             Settings.System.putInt(this.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 20);
 
@@ -235,7 +235,7 @@ public class Applying_Ultra extends AppCompatActivity {
         }
         if (permission) {
             //do your code
-            PowerSaving_Complition.setAutoOrientationEnabled(getApplicationContext(), false);
+            PowerSavingCompleteActivity.setAutoOrientationEnabled(getApplicationContext(), false);
 
             Settings.System.putInt(this.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 20);
 
@@ -267,7 +267,7 @@ public class Applying_Ultra extends AppCompatActivity {
 
 //            Toast.makeText(getApplicationContext(),"onRequestPermissionsResult",Toast.LENGTH_LONG).show();
 
-            PowerSaving_Complition.setAutoOrientationEnabled(getApplicationContext(), false);
+            PowerSavingCompleteActivity.setAutoOrientationEnabled(getApplicationContext(), false);
 
             Settings.System.putInt(this.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 20);
 
@@ -287,7 +287,7 @@ public class Applying_Ultra extends AppCompatActivity {
         super.onResume();
         if (check == 1) {
             try {
-                PowerSaving_Complition.setAutoOrientationEnabled(getApplicationContext(), false);
+                PowerSavingCompleteActivity.setAutoOrientationEnabled(getApplicationContext(), false);
 
                 Settings.System.putInt(this.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 20);
 

@@ -2,7 +2,7 @@ package com.cleaner.emptykesh.dto;
 
 public class PowerItem {
 
-    String text;
+    private String text;
 
     public String getText() {
         return text;

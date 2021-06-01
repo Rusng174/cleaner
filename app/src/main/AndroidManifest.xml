@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cleaner.emptykesh">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,7 +11,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -21,6 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7164494629924185~2877222817" />
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/SplashTheme">
@@ -57,7 +64,7 @@
 
         </activity>
         <activity
-            android:name=".PowerSaving_popup"
+            android:name=".PowerSavingDialogActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Ultra_PopUp"
@@ -69,19 +76,19 @@
             android:name=".Noraml_Mode"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PowerSaving_Complition"
+            android:name=".PowerSavingCompleteActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Applying_Ultra"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SacnningJunkActivity"
+            android:name=".ScanningActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CpuScannerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Pick_Apps"
+            android:name=".PickAppsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
 
@@ -101,9 +108,6 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".Broadcast.AlarmReceiver" />
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7164494629924185~2877222817" />
 
         <!-- Branch init -->
         <meta-data

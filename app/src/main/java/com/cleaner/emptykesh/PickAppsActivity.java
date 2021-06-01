@@ -12,11 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Pick_Apps extends AppCompatActivity {
+public class PickAppsActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     ImageView addcontact, addplaystore, addcalculator, addcamera, addclock, addmap;
-
 
     /// Choose App to Add it in Usable APP LIST
 
@@ -36,45 +35,42 @@ public class Pick_Apps extends AppCompatActivity {
         addmap = (ImageView) findViewById(R.id.addmap);
 
 
-        addcontact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        addcontact.setOnClickListener((View.OnClickListener) v -> {
 
-                if (!(sharedpreferences.getString("button1", "l").equals("4") || sharedpreferences.getString("button2", "l").equals("4") || sharedpreferences.getString("button3", "l").equals("4") || sharedpreferences.getString("button4", "l").equals("4"))) {
-                    if (sharedpreferences.getString("button", "1").equals("1")) {
-                        editor.putString("button1", "4");
-                        editor.commit();
-                    } else if (sharedpreferences.getString("button", "1").equals("2")) {
-                        editor.putString("button2", "4");
-                        editor.commit();
-                    } else if (sharedpreferences.getString("button", "1").equals("3")) {
-                        editor.putString("button3", "4");
-                        editor.commit();
-                    } else if (sharedpreferences.getString("button", "1").equals("4")) {
-                        editor.putString("button4", "4");
-                        editor.commit();
-                    }
-
-                    finish();
-                } else {
-                    LayoutInflater inflater = getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.my_toast, null);
-
-                    ImageView image = (ImageView) layout.findViewById(R.id.image);
-
-                    TextView text = (TextView) layout.findViewById(R.id.textView1);
-                    text.setText("This App Is Already Added");
-
-                    Toast toast = new Toast(Pick_Apps.this);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setView(layout);
-                    toast.show();
-
-//                   Toast.makeText(Pick_Apps.this, "Choose Another App This App Is Already Added", Toast.LENGTH_SHORT).show();
+            if (!(sharedpreferences.getString("button1", "l").equals("4") || sharedpreferences.getString("button2", "l").equals("4") || sharedpreferences.getString("button3", "l").equals("4") || sharedpreferences.getString("button4", "l").equals("4"))) {
+                if (sharedpreferences.getString("button", "1").equals("1")) {
+                    editor.putString("button1", "4");
+                    editor.commit();
+                } else if (sharedpreferences.getString("button", "1").equals("2")) {
+                    editor.putString("button2", "4");
+                    editor.commit();
+                } else if (sharedpreferences.getString("button", "1").equals("3")) {
+                    editor.putString("button3", "4");
+                    editor.commit();
+                } else if (sharedpreferences.getString("button", "1").equals("4")) {
+                    editor.putString("button4", "4");
+                    editor.commit();
                 }
 
+                finish();
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.my_toast, null);
+
+                ImageView image = (ImageView) layout.findViewById(R.id.image);
+
+                TextView text = (TextView) layout.findViewById(R.id.textView1);
+                text.setText("This App Is Already Added");
+
+                Toast toast = new Toast(PickAppsActivity.this);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+
+//                   Toast.makeText(Pick_Apps.this, "Choose Another App This App Is Already Added", Toast.LENGTH_SHORT).show();
             }
+
         });
 
         addplaystore.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +103,7 @@ public class Pick_Apps extends AppCompatActivity {
                     TextView text = (TextView) layout.findViewById(R.id.textView1);
                     text.setText("This App Is Already Added");
 
-                    Toast toast = new Toast(Pick_Apps.this);
+                    Toast toast = new Toast(PickAppsActivity.this);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
                     toast.setDuration(Toast.LENGTH_LONG);
                     toast.setView(layout);
@@ -149,7 +145,7 @@ public class Pick_Apps extends AppCompatActivity {
                     TextView text = (TextView) layout.findViewById(R.id.textView1);
                     text.setText("This App Is Already Added");
 
-                    Toast toast = new Toast(Pick_Apps.this);
+                    Toast toast = new Toast(PickAppsActivity.this);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
                     toast.setDuration(Toast.LENGTH_LONG);
                     toast.setView(layout);
@@ -191,7 +187,7 @@ public class Pick_Apps extends AppCompatActivity {
                     TextView text = (TextView) layout.findViewById(R.id.textView1);
                     text.setText("This App Is Already Added");
 
-                    Toast toast = new Toast(Pick_Apps.this);
+                    Toast toast = new Toast(PickAppsActivity.this);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
                     toast.setDuration(Toast.LENGTH_LONG);
                     toast.setView(layout);
@@ -235,7 +231,7 @@ public class Pick_Apps extends AppCompatActivity {
                     TextView text = (TextView) layout.findViewById(R.id.textView1);
                     text.setText("This App Is Already Added");
 
-                    Toast toast = new Toast(Pick_Apps.this);
+                    Toast toast = new Toast(PickAppsActivity.this);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
                     toast.setDuration(Toast.LENGTH_LONG);
                     toast.setView(layout);
@@ -279,7 +275,7 @@ public class Pick_Apps extends AppCompatActivity {
                     TextView text = (TextView) layout.findViewById(R.id.textView1);
                     text.setText("This App Is Already Added");
 
-                    Toast toast = new Toast(Pick_Apps.this);
+                    Toast toast = new Toast(PickAppsActivity.this);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 70);
                     toast.setDuration(Toast.LENGTH_LONG);
                     toast.setView(layout);

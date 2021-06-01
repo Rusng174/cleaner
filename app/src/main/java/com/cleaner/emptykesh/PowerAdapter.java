@@ -13,15 +13,14 @@ import java.util.List;
 
 public class PowerAdapter extends RecyclerView.Adapter<PowerAdapter.MyViewHolder> {
 
-    public List<PowerItem> apps;
+    private List<PowerItem> apps;
 
-    public PowerAdapter(List<PowerItem> getapps) {
-        apps = getapps;
+    public PowerAdapter(List<PowerItem> apps) {
+        this.apps = apps;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.powe_itemlist, parent, false);
         return new MyViewHolder(itemView);
     }
@@ -29,7 +28,6 @@ public class PowerAdapter extends RecyclerView.Adapter<PowerAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
         PowerItem app = apps.get(position);
         holder.size.setText(app.getText());
     }
@@ -39,9 +37,8 @@ public class PowerAdapter extends RecyclerView.Adapter<PowerAdapter.MyViewHolder
         return apps.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView size;
-
 
         public MyViewHolder(View view) {
             super(view);

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,17 +21,17 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class PowerSaving_popup extends AppCompatActivity {
-    RecyclerView recyclerView;
-    PowerAdapter mAdapter;
-    List<PowerItem> items;
-    ImageView applied;
-    SharedPreferences sharedpreferences;
-    SharedPreferences.Editor editor;
-    TextView extendedtime, extendedtimedetail;
+public class PowerSavingDialogActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private PowerAdapter mAdapter;
+    private List<PowerItem> items;
+    private ImageView applied;
+    private SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
+    private TextView extendedtime, extendedtimedetail;
 
-    int hour;
-    int min;
+    private int hour;
+    private int min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +40,8 @@ public class PowerSaving_popup extends AppCompatActivity {
         setContentView(R.layout.powersaving_popup);
         sharedpreferences = getSharedPreferences("was", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
-        extendedtime = (TextView) findViewById(R.id.addedtime);
-        extendedtimedetail = (TextView) findViewById(R.id.addedtimedetail);
-
+        extendedtime = findViewById(R.id.addedtime);
+        extendedtimedetail = findViewById(R.id.addedtimedetail);
 
         try {
             hour = Integer.parseInt(b.getString("hour").replaceAll("[^0-9]", ""))
@@ -62,32 +60,20 @@ public class PowerSaving_popup extends AppCompatActivity {
         extendedtime.setText("(+" + hour + " h " + Math.abs(min) + " m)");
         extendedtimedetail.setText("Extended Battery Up to " + Math.abs(hour) + "h " + Math.abs(min) + "m");
 
-//        (+10 h 30m)
-
-
         items = new ArrayList<>();
-        applied = (ImageView) findViewById(R.id.applied);
-        applied.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        applied = findViewById(R.id.applied);
+        applied.setOnClickListener(v -> {
+            editor.putString("mode", "1");
+            editor.apply();
 
+            Intent i = new Intent(getApplicationContext(), PowerSavingCompleteActivity.class);
+            startActivity(i);
 
-                editor.putString("mode", "1");
-                editor.commit();
-
-                Intent i = new Intent(getApplicationContext(), PowerSaving_Complition.class);
-                startActivity(i);
-
-                finish();
-            }
+            finish();
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setItemAnimator(new SlideInLeftAnimator());
-//                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
-//                recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
-
         recyclerView.getItemAnimator().setAddDuration(200);
 
         mAdapter = new PowerAdapter(items);
@@ -99,60 +85,22 @@ public class PowerSaving_popup extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
 
         final Handler handler1 = new Handler();
-        handler1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                add("Limit Brightness Upto 80%", 0);
-
-
-            }
-        }, 1000);
+        handler1.postDelayed(() -> add("Limit Brightness Upto 80%", 0), 1000);
 
         final Handler handler2 = new Handler();
-        handler2.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                add("Decrease Device Performance", 1);
-
-
-            }
-        }, 2000);
+        handler2.postDelayed(() -> add("Decrease Device Performance", 1), 2000);
 
         final Handler handler3 = new Handler();
-        handler3.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                add("Close All Battery Consuming Apps", 2);
-
-
-            }
-        }, 3000);
+        handler3.postDelayed(() -> add("Close All Battery Consuming Apps", 2), 3000);
 
         final Handler handler4 = new Handler();
-        handler4.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                add("Closes System Services like Bluetooth,Screen Rotation,Sync etc.", 3);
-
-            }
-        }, 4000);
-
-
+        handler4.postDelayed(() -> add("Closes System Services like Bluetooth,Screen Rotation,Sync etc.", 3), 4000);
     }
 
     public void add(String text, int position) {
-
-
         PowerItem item = new PowerItem();
         item.setText(text);
         items.add(item);
-//        mDataSet.add(position, text);
         mAdapter.notifyItemInserted(position);
     }
-//
-//    @Override
-//    public void onBackPressed() {
-////        super.onBackPressed();
-//    }
-
 }

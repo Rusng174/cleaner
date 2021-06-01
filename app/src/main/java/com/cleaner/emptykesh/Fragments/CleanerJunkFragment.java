@@ -17,12 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.cleaner.emptykesh.Alaram_Junk;
 import com.cleaner.emptykesh.R;
-import com.cleaner.emptykesh.SacnningJunkActivity;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.cleaner.emptykesh.ScanningActivity;
 
 import java.util.Random;
 
@@ -117,9 +115,9 @@ public class CleanerJunkFragment extends AbsFragment {
                 systemtext.setTextColor(Color.parseColor("#24D149"));
             }
 
-            mainbutton.setOnClickListener((View.OnClickListener) v -> {
+            mainbutton.setOnClickListener(v -> {
                 if (sharedpreferences.getString("junk", "1").equals("1")) {
-                    Intent i = new Intent(getActivity(), SacnningJunkActivity.class);
+                    Intent i = new Intent(getActivity(), ScanningActivity.class);
                     i.putExtra("junk", alljunk + "");
                     startActivity(i);
 

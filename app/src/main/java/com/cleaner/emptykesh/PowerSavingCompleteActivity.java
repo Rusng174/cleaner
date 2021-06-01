@@ -27,11 +27,11 @@ import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
 
-public class PowerSaving_Complition extends AppCompatActivity {
-    DecoView arcView;
-    TextView ist, sec, thir, fou, completion;
-    ImageView istpic, secpic, thirpic, foupic;
-    int check = 0;
+public class PowerSavingCompleteActivity extends AppCompatActivity {
+    private DecoView arcView;
+    private TextView ist, sec, thir, fou, completion;
+    private ImageView istpic, secpic, thirpic, foupic;
+    private int check = 0;
 
     public static void setAutoOrientationEnabled(Context context, boolean enabled) {
         Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, enabled ? 1 : 0);
@@ -59,11 +59,6 @@ public class PowerSaving_Complition extends AppCompatActivity {
                 .setLineWidth(12f)
                 .build());
 
-        SeriesItem seriesItem1 = new SeriesItem.Builder(Color.parseColor("#27282D"))
-                .setRange(0, 100, 0)
-                .setLineWidth(10f)
-                .build();
-
         SeriesItem seriesItem2 = new SeriesItem.Builder(Color.parseColor("#FFFFFF"))
                 .setRange(0, 100, 0)
                 .setLineWidth(10f)
@@ -74,9 +69,7 @@ public class PowerSaving_Complition extends AppCompatActivity {
         seriesItem2.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
             @Override
             public void onSeriesItemAnimationProgress(float v, float v1) {
-
-                Float obj = new Float(v1);
-                int i = obj.intValue();
+                int i = (int) v1;
                 completion.setText(i + "%");
 
                 if (v1 >= 10 && v1 < 50) {
@@ -125,7 +118,7 @@ public class PowerSaving_Complition extends AppCompatActivity {
 
             @Override
             public void onEventEnd(DecoEvent decoEvent) {
-                youDesirePermissionCode(PowerSaving_Complition.this);
+                youDesirePermissionCode(PowerSavingCompleteActivity.this);
                 closesall();
                 check = 1;
             }
@@ -143,7 +136,6 @@ public class PowerSaving_Complition extends AppCompatActivity {
     @Override
     public void onBackPressed() {
     }
-
 
     public void youDesirePermissionCode(Activity context) {
         boolean permission;
@@ -169,7 +161,6 @@ public class PowerSaving_Complition extends AppCompatActivity {
         }
     }
 
-    //
     @SuppressLint("NewApi")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -177,9 +168,6 @@ public class PowerSaving_Complition extends AppCompatActivity {
         if (requestCode == 1 && Settings.System.canWrite(this)) {
             Log.d("TAG", "CODE_WRITE_SETTINGS_PERMISSION success");
 
-
-//            Toast.makeText(getApplicationContext(),"onActivityResult",Toast.LENGTH_LONG).show();
-            //do your code
             Settings.System.putInt(this.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 30);
             setAutoOrientationEnabled(this, false);
 
@@ -189,10 +177,8 @@ public class PowerSaving_Complition extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            //do your code
 
             Toast.makeText(getApplicationContext(), "onRequestPermissionsResult", Toast.LENGTH_LONG).show();
 
@@ -201,7 +187,6 @@ public class PowerSaving_Complition extends AppCompatActivity {
 
             finish();
         }
-
     }
 
 

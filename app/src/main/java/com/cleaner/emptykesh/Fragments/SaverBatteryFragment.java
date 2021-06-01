@@ -17,7 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.cleaner.emptykesh.Noraml_Mode;
-import com.cleaner.emptykesh.PowerSaving_popup;
+import com.cleaner.emptykesh.PowerSavingDialogActivity;
 import com.cleaner.emptykesh.R;
 import com.cleaner.emptykesh.Ultra_PopUp;
 
@@ -29,7 +29,6 @@ public class SaverBatteryFragment extends AbsFragment {
     private ImageView powersaving, ultrasaving, normal;
     private TextView hourn, minutes, hourp, minutep, houru, minutesu, hourmain, minutesmain;
     private SharedPreferences sharedpreferences;
-    private SharedPreferences.Editor editor;
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
         @Override
@@ -263,7 +262,7 @@ public class SaverBatteryFragment extends AbsFragment {
 
         try {
             powersaving.setOnClickListener(v -> {
-                Intent i = new Intent(getActivity(), PowerSaving_popup.class);
+                Intent i = new Intent(getActivity(), PowerSavingDialogActivity.class);
                 i.putExtra("hour", hourp.getText());
                 i.putExtra("minutes", minutep.getText());
                 i.putExtra("minutesnormal", minutes.getText());
@@ -296,10 +295,8 @@ public class SaverBatteryFragment extends AbsFragment {
             mWaveLoadingView.setTopTitleStrokeWidth(3);
             mWaveLoadingView.setAnimDuration(3000);
             mWaveLoadingView.startAnimation();
-
-
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         return view;
@@ -318,7 +315,7 @@ public class SaverBatteryFragment extends AbsFragment {
         try {
             getActivity().unregisterReceiver(mBatInfoReceiver);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

@@ -134,7 +134,7 @@ public class Noraml_Mode extends AppCompatActivity {
     }
 
     public void enablesall() {
-        PowerSaving_Complition.setAutoOrientationEnabled(getApplicationContext(), true);
+        PowerSavingCompleteActivity.setAutoOrientationEnabled(getApplicationContext(), true);
         Settings.System.putInt(this.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         ContentResolver.setMasterSyncAutomatically(true);
     }

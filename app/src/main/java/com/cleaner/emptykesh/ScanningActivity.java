@@ -46,20 +46,21 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 import static com.cleaner.emptykesh.service.Constants.AD_CROSS_PAGE_ID;
 
-public class SacnningJunkActivity extends AppCompatActivity {
+public class ScanningActivity extends AppCompatActivity {
 
-    public List<Apps> apps;
-    AVLoadingIndicatorView avi1, avi2, avi3, avi4, avi5, avi6;
-    ImageView front, back;
-    int check = 0;
-    TextView files;
-    List<ApplicationInfo> packages;
-    int prog = 0;
-    Timer T2;
-    Junk_Apps_Adapter mAdapter;
-    RecyclerView recyclerView;
-    PackageManager pm;
-    TextView scanning;
+    private List<Apps> apps;
+    private AVLoadingIndicatorView avi1, avi2, avi3, avi4, avi5, avi6;
+    private ImageView front, back;
+    private int check = 0;
+    private TextView files;
+    private List<ApplicationInfo> packages;
+    private int prog = 0;
+    private Timer T2;
+    private Junk_Apps_Adapter mAdapter;
+    private RecyclerView recyclerView;
+    private PackageManager pm;
+    private TextView scanning;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +172,6 @@ public class SacnningJunkActivity extends AppCompatActivity {
             remove(0);
 
             final RippleBackground rippleBackground = (RippleBackground) findViewById(R.id.content);
-            ImageView imageView = (ImageView) findViewById(R.id.centerImage);
             rippleBackground.startRippleAnimation();
             front.setImageResource(R.drawable.task_complete);
             back.setImageResource(R.drawable.green_circle);
@@ -225,7 +225,6 @@ public class SacnningJunkActivity extends AppCompatActivity {
         }, 8000);
     }
 
-
     void startAnim(int i1) {
         if (i1 == 1) {
             avi1.show();
@@ -272,7 +271,6 @@ public class SacnningJunkActivity extends AppCompatActivity {
         avi6.show();
     }
 
-
     public void add(String text, int position) {
         int p = 0 + (int) (Math.random() * ((packages.size() - 1 - 0) + 1));
         Drawable ico = null;
@@ -293,7 +291,6 @@ public class SacnningJunkActivity extends AppCompatActivity {
         mAdapter.notifyItemInserted(position);
     }
 
-
     public void remove(int position) {
         mAdapter.notifyItemRemoved(position);
         apps.remove(position);
@@ -301,6 +298,25 @@ public class SacnningJunkActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+    }
+
+    private void ads() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(ScanningActivity.this, AD_CROSS_PAGE_ID, adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+                mInterstitialAd.show(ScanningActivity.this);
+                ScanningActivity.this.finish();
+                Log.d("Cleaner", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                Log.d("Cleaner", loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
     }
 
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
@@ -333,27 +349,5 @@ public class SacnningJunkActivity extends AppCompatActivity {
             }
         }
     }
-
-
-    private void ads() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(SacnningJunkActivity.this, AD_CROSS_PAGE_ID, adRequest, new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                mInterstitialAd = interstitialAd;
-                mInterstitialAd.show(SacnningJunkActivity.this);
-                SacnningJunkActivity.this.finish();
-                Log.d("Cleaner", "onAdLoaded");
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                Log.d("Cleaner", loadAdError.getMessage());
-                mInterstitialAd = null;
-            }
-        });
-    }
-
-    private InterstitialAd mInterstitialAd;
 }
 

@@ -212,7 +212,7 @@ public class BatterySaver_Black extends Activity {
                 editor.commit();
 
                 if (sharedpreferences.getString("button1", "0").equals("0")) {
-                    Intent i = new Intent(BatterySaver_Black.this, Pick_Apps.class);
+                    Intent i = new Intent(BatterySaver_Black.this, PickAppsActivity.class);
                     startActivity(i);
                 } else if (sharedpreferences.getString("button1", "0").equals("1")) {
                     playstore();
@@ -239,7 +239,7 @@ public class BatterySaver_Black extends Activity {
                 editor.commit();
 
                 if (sharedpreferences.getString("button2", "0").equals("0")) {
-                    Intent i = new Intent(BatterySaver_Black.this, Pick_Apps.class);
+                    Intent i = new Intent(BatterySaver_Black.this, PickAppsActivity.class);
                     startActivity(i);
                 } else if (sharedpreferences.getString("button2", "0").equals("1")) {
                     playstore();
@@ -334,7 +334,7 @@ public class BatterySaver_Black extends Activity {
                 editor.commit();
 
                 if (sharedpreferences.getString("button3", "0").equals("0")) {
-                    Intent i = new Intent(BatterySaver_Black.this, Pick_Apps.class);
+                    Intent i = new Intent(BatterySaver_Black.this, PickAppsActivity.class);
                     startActivity(i);
                 } else if (sharedpreferences.getString("button3", "0").equals("1")) {
                     playstore();
@@ -361,7 +361,7 @@ public class BatterySaver_Black extends Activity {
                 editor.commit();
 
                 if (sharedpreferences.getString("button4", "0").equals("0")) {
-                    Intent i = new Intent(BatterySaver_Black.this, Pick_Apps.class);
+                    Intent i = new Intent(BatterySaver_Black.this, PickAppsActivity.class);
                     startActivity(i);
                 } else if (sharedpreferences.getString("button4", "0").equals("1")) {
                     playstore();
