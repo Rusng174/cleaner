@@ -12,6 +12,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.WebStorage;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -116,6 +118,11 @@ public class CleanerJunkFragment extends AbsFragment {
             }
 
             mainbutton.setOnClickListener(v -> {
+                WebStorage.getInstance().deleteAllData();
+
+                CookieManager.getInstance().removeAllCookies(null);
+                CookieManager.getInstance().flush();
+
                 if (sharedpreferences.getString("junk", "1").equals("1")) {
                     Intent i = new Intent(getActivity(), ScanningActivity.class);
                     i.putExtra("junk", alljunk + "");
