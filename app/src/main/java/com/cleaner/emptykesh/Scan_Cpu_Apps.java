@@ -14,10 +14,7 @@ import java.util.List;
 
 public class Scan_Cpu_Apps extends RecyclerView.Adapter<Scan_Cpu_Apps.MyViewHolder> {
 
-
-    /// Get List of Apps Causing Junk Files
-
-    public List<Apps> apps;
+    private List<Apps> apps;
 
     public Scan_Cpu_Apps(List<Apps> getapps) {
         apps = getapps;

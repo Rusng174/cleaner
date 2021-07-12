@@ -50,7 +50,7 @@ import static com.cleaner.emptykesh.service.Constants.AD_CROSS_PAGE_ID;
 public class CoolerCPUFragment extends AbsFragment {
 
     private InterstitialAd mInterstitialAd;
-    public static List<Apps> apps;
+    public static List<Apps> apps = new ArrayList<>();
     private TextView batterytemp, showmain, showsec, nooverheating;
     private float temp;
     private ImageView coolbutton, tempimg;
@@ -66,7 +66,6 @@ public class CoolerCPUFragment extends AbsFragment {
                 batterytemp.setText(temp + "°C");
 
                 if (temp >= 30.0) {
-                    apps = new ArrayList<>();
                     tempimg.setImageResource(R.drawable.red_cooler);
                     showmain.setText("OVERHEATED");
                     showmain.setTextColor(Color.parseColor("#F22938"));
@@ -129,7 +128,7 @@ public class CoolerCPUFragment extends AbsFragment {
                     getAllICONS();
                 }
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     };
