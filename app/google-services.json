@@ -1,38 +1,39 @@
 {
   "project_info": {
-    "project_number": "517336599495",
-    "project_id": "android-cleaner-e7316",
-    "storage_bucket": "android-cleaner-e7316.appspot.com"
+    "project_number": "455113641763",
+    "project_id": "cleaner-ee5b9",
+    "storage_bucket": "cleaner-ee5b9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:517336599495:android:727ea3dfdf63d7bf4567e2",
+        "mobilesdk_app_id": "1:455113641763:android:c9a8b20632ea044789c696",
         "android_client_info": {
           "package_name": "com.cleaner.emptykesh"
         }
       },
       "oauth_client": [
         {
-          "client_id": "517336599495-hcfoqt8n9cmq40ieo3h6r2384vn536ou.apps.googleusercontent.com",
+          "client_id": "455113641763-r17rlcsse7d2dbc779m51394q12meva3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDLLFzfjBtvB7DBCUf5HoZq7T4NrhceenQ"
+          "current_key": "AIzaSyDyfoMdf-5wBra7QTY3smf4s29YLisvg3E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "517336599495-hcfoqt8n9cmq40ieo3h6r2384vn536ou.apps.googleusercontent.com",
+              "client_id": "455113641763-r17rlcsse7d2dbc779m51394q12meva3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-7164494629924185~2877222817"
     }
   ],
   "configuration_version": "1"
