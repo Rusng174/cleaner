@@ -53,6 +53,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
 
+        ads();
+
         FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
 
         super.onCreate(savedInstanceState);
@@ -130,13 +132,10 @@ public class MainActivity extends FragmentActivity {
 
             }
         });
-
-        ads();
     }
 
     private void ads() {
-        MobileAds.initialize(this, initializationStatus -> {
-        });
+        MobileAds.initialize(this);
 
         if (sharedpreferences.getBoolean("onAdLoaded", false)) {
             return;
