@@ -53,6 +53,9 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
 
+        sharedpreferences = getSharedPreferences("waseembest", Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
         ads();
 
         FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
@@ -97,9 +100,6 @@ public class MainActivity extends FragmentActivity {
                     else
                         System.exit(2);
                 });
-
-        sharedpreferences = getSharedPreferences("waseembest", Context.MODE_PRIVATE);
-        editor = sharedpreferences.edit();
 
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.phonebooster));
